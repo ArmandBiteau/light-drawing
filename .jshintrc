@@ -1,0 +1,10 @@
+{
+    "esnext": true,
+    "strict": true,
+    "node": true,
+    "globals": {
+        "Vue": true,
+        "window": true,
+        "console": true
+      }
+}

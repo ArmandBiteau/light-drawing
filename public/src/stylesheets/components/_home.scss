@@ -1,0 +1,29 @@
+.home-wrapper {
+  text-align: center;
+}
+
+.home-container {
+  @include centerXY;
+}
+
+.home-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $color-green;
+}
+
+.home-link {
+    margin-top: 2em;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: $color-green;
+}
+
+.home-list {
+    margin-top: 2em;
+}
+
+.home-list-element {
+    font-size: 1.3rem;
+    line-height: 1.5em;
+}

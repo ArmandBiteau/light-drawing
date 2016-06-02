@@ -1,0 +1,21 @@
+.intro-wrapper {
+  text-align: center;
+}
+
+.intro-container {
+  @include centerXY;
+}
+
+.intro-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $color-green;
+}
+
+.intro-link {
+    display: block;
+    margin-top: 2em;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: $color-green;
+}
