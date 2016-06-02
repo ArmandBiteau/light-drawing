@@ -6,6 +6,7 @@ import {
     WINDOW_RESIZE
 } from 'config/messages';
 
+import WebGL from './canvas';
 
 export default Vue.extend({
 
@@ -40,7 +41,8 @@ export default Vue.extend({
 
     ready() {
 
-        // this.socketEmitter.emit(NEW_USER, {name: 'Armand Biteau'});
+        this.webgl = new WebGL(window.innerWidth, window.innerHeight);
+        document.getElementById('game-canvas').appendChild(this.WebGL.renderer.domElement);
 
     },
 

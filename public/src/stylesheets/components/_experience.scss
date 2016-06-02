@@ -1,29 +1,29 @@
-.home-wrapper {
+.experience-wrapper {
   text-align: center;
 }
 
-.home-container {
+.experience-container {
   @include centerXY;
 }
 
-.home-title {
+.experience-title {
   font-size: 1.8rem;
   font-weight: bold;
   color: $color-green;
 }
 
-.home-link {
+.experience-link {
     margin-top: 2em;
     font-size: 1.3rem;
     font-weight: bold;
     color: $color-green;
 }
 
-.home-list {
+.experience-list {
     margin-top: 2em;
 }
 
-.home-list-element {
+.experience-list-element {
     font-size: 1.3rem;
     line-height: 1.5em;
 }

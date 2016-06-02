@@ -3,7 +3,7 @@ import Emitter from 'core/Emitter';
 
 import IntroPageComponent from 'containers/Intro';
 
-import HomePageComponent from 'containers/Homepage';
+import ExperiencePageComponent from 'containers/Experience';
 
 import {
     ROUTER_ROUTE_CHANGE
@@ -32,8 +32,8 @@ class Router extends VueRouter {
         this.map({
 
             'connected': {
-                name: "home",
-                component: HomePageComponent
+                name: "Experience",
+                component: ExperiencePageComponent
             },
             '*': {
                 name: "intro",

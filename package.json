@@ -31,6 +31,7 @@
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6",
     "style-loader": "^0.13.0",
+    "three": "^0.77.1",
     "vue": "^1.0.20",
     "vue-router": "^0.7.11"
   },
