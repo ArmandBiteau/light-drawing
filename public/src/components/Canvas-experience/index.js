@@ -4,6 +4,7 @@ import THREE from 'three';
 import Stats from 'stats-js';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
+import GroundObject from './objects/ground';
 
 import {
     WINDOW_RESIZE
@@ -11,7 +12,10 @@ import {
 
 export default Vue.extend({
 
-    mixins: [EventManagerMixin],
+    mixins: [
+        EventManagerMixin,
+        GroundObject
+    ],
 
     template: require('./template.html'),
 
@@ -112,6 +116,8 @@ export default Vue.extend({
 
             this._scene = new THREE.Scene();
 
+            this._sceneCenter = new THREE.Vector3(0, 0, 0);
+
             // this._scene.fog = new THREE.Fog(0x181d21, 0.015, 3.0);
 
             /*
@@ -119,6 +125,11 @@ export default Vue.extend({
     		*/
 
             this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+
+            this._camera.position.set(0, 10, 10);
+
+            this._camera.lookAt(this._sceneCenter);
+
 
             /*
     		 * Renderer
@@ -154,9 +165,7 @@ export default Vue.extend({
 
 			this.isSceneLoaded = true;
 
-			// this.controlsInitialize();
-
-			// this.terrainInitialize();
+			this.groundInitialize();
 
 		},
 
@@ -173,6 +182,8 @@ export default Vue.extend({
         update() {
 
             this._clockElapsedTime = this._clock.getElapsedTime();
+
+            this.groundUpdate();
 
         },
 
