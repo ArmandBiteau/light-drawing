@@ -3,7 +3,7 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    WINDOW_RESIZE, NEW_USER
+    NEW_USER
 } from 'config/messages';
 
 import LoadingComponent from 'components/Loading';
@@ -14,10 +14,7 @@ export default Vue.extend({
 
     template: require('./template.html'),
 
-    emitterEvents: [{
-        message: WINDOW_RESIZE,
-        method: 'onWindowResize'
-    }],
+    emitterEvents: [],
 
     props: {
         me: {
@@ -46,12 +43,6 @@ export default Vue.extend({
             this.$router.isLoaded = true;
             this.$router.go('/connected');
 
-        },
-
-        onWindowResize({width, height}) {
-            /*eslint-disable */
-            console.log(`Window resize from application: ${width}px / ${height}`);
-            /*eslint-enable */
         }
 
     },

@@ -6,7 +6,7 @@ import {
     WINDOW_RESIZE
 } from 'config/messages';
 
-import WebGL from './canvas';
+import CanvasComponent from 'components/Canvas-experience';
 
 export default Vue.extend({
 
@@ -41,9 +41,6 @@ export default Vue.extend({
 
     ready() {
 
-        this.webgl = new WebGL(window.innerWidth, window.innerHeight);
-        document.getElementById('game-canvas').appendChild(this.WebGL.renderer.domElement);
-
     },
 
     methods: {
@@ -57,5 +54,6 @@ export default Vue.extend({
     },
 
     components: {
+        'canvas-experience': CanvasComponent
     }
 });

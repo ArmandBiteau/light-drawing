@@ -38,7 +38,9 @@ export default Vue.extend({
     data() {
 
         return {
-            users: [],
+            users: [{
+                name: 'Armand Biteau'
+            }],
             me: {
                 name: 'Armand Biteau'
             }

@@ -45,7 +45,7 @@ class Router extends VueRouter {
 
         this.beforeEach( () => {
 
-            if (!this.isLoaded) this.go('/');
+            // if (!this.isLoaded) this.go('/');
 
         });
 
