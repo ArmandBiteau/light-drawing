@@ -4,7 +4,14 @@ import THREE from 'three';
 import Stats from 'stats-js';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
-import GroundObject from './objects/ground';
+
+import GroundMixin from './mixins/ground';
+import CursorMixin from './mixins/cursor';
+import SplinesMixin from './mixins/splines';
+
+import ComposerMixin from './mixins/composer';
+
+import DesktopControls from './controls/desktop';
 
 import {
     WINDOW_RESIZE
@@ -14,17 +21,29 @@ export default Vue.extend({
 
     mixins: [
         EventManagerMixin,
-        GroundObject
+        ComposerMixin,
+        CursorMixin,
+        SplinesMixin,
+        DesktopControls,
+        GroundMixin
     ],
 
     template: require('./template.html'),
+
+    domEvents: [{
+        target: document,
+        event: 'mousedown',
+        method: 'onMouseDown'
+    },{
+        target: document,
+        event: 'mouseup',
+        method: 'onMouseUp'
+    }],
 
     emitterEvents: [{
         message: WINDOW_RESIZE,
         method: 'onWindowResize'
     }],
-
-    domEvents: [],
 
     socketEvents: [],
 
@@ -49,7 +68,11 @@ export default Vue.extend({
             _stats: null,
             _raf: null,
 
-            isSceneLoaded: false
+            _domElement: null,
+
+            isSceneLoaded: false,
+
+            isDrawing: false
 
         };
 
@@ -124,12 +147,9 @@ export default Vue.extend({
     		 * Camera
     		*/
 
-            this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+            this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.001, 100);
 
-            this._camera.position.set(0, 10, 10);
-
-            this._camera.lookAt(this._sceneCenter);
-
+            this._camera.position.set(0, 3, 0);
 
             /*
     		 * Renderer
@@ -143,7 +163,9 @@ export default Vue.extend({
 
 			this._renderer.setClearColor(0x181d24, 1);
 
-			this.$el.appendChild(this._renderer.domElement);
+            this._domElement = this.$el;
+
+			this._domElement.appendChild(this._renderer.domElement);
 
             /*
     		 * Composer
@@ -165,7 +187,15 @@ export default Vue.extend({
 
 			this.isSceneLoaded = true;
 
-			this.groundInitialize();
+            this.cursorInitialize();
+
+            this.splinesInitialize();
+
+			this.controlsInitialize();
+
+            this.groundInitialize();
+
+            this.composerInitialize();
 
 		},
 
@@ -181,7 +211,13 @@ export default Vue.extend({
 
         update() {
 
-            this._clockElapsedTime = this._clock.getElapsedTime();
+            this._clockElapsedTime = this._clock.getDelta();
+
+            this.cursorUpdate();
+
+            this.splinesUpdate();
+
+            this.controlsUpdate(this._clockElapsedTime);
 
             this.groundUpdate();
 
@@ -193,7 +229,9 @@ export default Vue.extend({
 
             this._renderer.autoClearColor = true;
 
-            this._renderer.render(this._scene, this._camera);
+            this.composerRender();
+
+            // this._renderer.render(this._scene, this._camera);
 
             this._stats.end();
 
@@ -257,6 +295,22 @@ export default Vue.extend({
 			this._stats.domElement.parentNode.removeChild(this._stats.domElement);
 
 		},
+
+        onMouseDown() {
+
+            this.isDrawing = true;
+
+            this.splinesDraw();
+
+        },
+
+        onMouseUp() {
+
+            this.isDrawing = false;
+
+            this.splinesStop();
+
+        },
 
         onWindowResize({width, height}) {
 

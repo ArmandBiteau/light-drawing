@@ -23,6 +23,8 @@ export default {
             let groundGeometry = new THREE.PlaneGeometry(this._groundSize, this._groundSize);
             let groundMaterial = new THREE.MeshBasicMaterial({
                 // color: this._groundColor
+                side: 2,
+                wireframe: true
             });
             this._ground = new THREE.Mesh(groundGeometry, groundMaterial);
 

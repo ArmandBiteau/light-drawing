@@ -2,9 +2,9 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
-import {
-    WINDOW_RESIZE
-} from 'config/messages';
+// import {
+//     WINDOW_RESIZE
+// } from 'config/messages';
 
 import CanvasComponent from 'components/Canvas-experience';
 
@@ -13,11 +13,6 @@ export default Vue.extend({
     mixins: [EventManagerMixin],
 
     template: require('./template.html'),
-
-    emitterEvents: [{
-        message: WINDOW_RESIZE,
-        method: 'onWindowResize'
-    }],
 
     socketEvents: [],
 
@@ -44,12 +39,6 @@ export default Vue.extend({
     },
 
     methods: {
-
-        onWindowResize({width, height}) {
-            /*eslint-disable */
-            console.log(`Window resize from application: ${width}px / ${height}`);
-            /*eslint-enable */
-        }
 
     },
 
