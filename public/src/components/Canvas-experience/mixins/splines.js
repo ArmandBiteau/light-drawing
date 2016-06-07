@@ -2,7 +2,10 @@
 
 // import THREE from 'three';
 
-import Spline from '../objects/spline';
+// import Spline from '../objects/spline';
+import Spline from '../objects/spline2';
+// import Spline from '../objects/spline3';
+
 
 export default {
 
@@ -10,13 +13,13 @@ export default {
 
 		// splines manager
 
-		this._splines = [];
-
-        this._splinesColor = 0xf6f6f6;
-
-        this._splinesSize = 10;
+        this.isDrawing = false;
 
         this._currentSpline = null;
+        this._otherSpline = null;
+
+        this._splines = [];
+        this._splinesCount = 40;
 
 	},
 
@@ -26,22 +29,51 @@ export default {
 
 		},
 
-		splinesUpdate() {
-
-		},
-
         splinesDraw() {
 
-            this._currentSpline = new Spline(this._cursor);
-            this._scene.add(this._currentSpline);
+            this.isDrawing = true;
+
+            for (var i = 0; i < this._splinesCount; i++) {
+
+                this._splines.push(new Spline(this._cursor));
+
+                this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth;
+                this._splines[i].position.y = Math.random()/10 + this._splines[i]._lineWidth;
+                this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth;
+
+                this._scene.add(this._splines[i]);
+
+            }
 
         },
 
         splinesStop() {
 
-            this._currentSpline.stop();
+            this.isDrawing = false;
 
-        }
+            for (var i = 0; i < this._splinesCount; i++) {
+
+                this._splines[i].stop();
+
+            }
+
+            this._splines = [];
+
+        },
+
+        splinesUpdate(delta) {
+
+            if (this.isDrawing) {
+
+                for (var i = 0; i < this._splinesCount; i++) {
+
+                    this._splines[i].update(delta);
+
+                }
+
+            }
+
+		}
 
 	}
 };

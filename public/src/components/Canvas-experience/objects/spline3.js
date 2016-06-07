@@ -13,12 +13,6 @@ class Spline extends THREE.Mesh {
         let geometry = new THREE.PlaneBufferGeometry(0.1, 0.1, 0.1, MAX_FACES);
 
         let material = new THREE.ShaderMaterial({
-            uniforms: {
-                viewport: {
-                    type: 'vec2',
-                    value: new THREE.Vector2(window.innerWidth, window.innerHeight)
-                }
-            },
             vertexShader: require('shaders/vertex/spline-vs.glsl'),
             fragmentShader: require('shaders/fragment/spline-fs.glsl'),
             transparent: true,
@@ -30,13 +24,9 @@ class Spline extends THREE.Mesh {
         this.cursor = cursor;
         this._pointCount = 0;
         this._centerCount = 0;
-        this._lastCount = 0;
-        this._nextCount = 0;
-
         this._thickness = THICKNESS;
 
         this.geometry.addAttribute('center', new THREE.BufferAttribute(new Float32Array(this.geometry.attributes.position.array.length), 3));
-
         this.geometry.setDrawRange(0, 2, 0);
 
     }

@@ -147,7 +147,7 @@ export default Vue.extend({
     		 * Camera
     		*/
 
-            this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.001, 100);
 
             this._camera.position.set(0, 3, 0);
 
@@ -193,7 +193,7 @@ export default Vue.extend({
 
 			this.controlsInitialize();
 
-            this.groundInitialize();
+            // this.groundInitialize();
 
             this.composerInitialize();
 
@@ -215,11 +215,11 @@ export default Vue.extend({
 
             this.cursorUpdate();
 
-            this.splinesUpdate();
+            this.splinesUpdate(this._clockElapsedTime);
 
             this.controlsUpdate(this._clockElapsedTime);
 
-            this.groundUpdate();
+            // this.groundUpdate();
 
         },
 

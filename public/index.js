@@ -32,6 +32,8 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
+app.use('/static', express.static('public'));
+
 app.get('*', (req, res) => res.sendFile(path.join( __dirname, 'index.html')));
 
 app.listen( port, ip, error => {
