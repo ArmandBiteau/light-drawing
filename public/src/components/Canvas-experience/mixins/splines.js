@@ -11,15 +11,13 @@ export default {
 
     created() {
 
-		// splines manager
-
         this.isDrawing = false;
 
         this._currentSpline = null;
         this._otherSpline = null;
 
         this._splines = [];
-        this._splinesCount = 40;
+        this._splinesCount = 60;
 
 	},
 

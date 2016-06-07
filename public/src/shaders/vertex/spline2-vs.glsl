@@ -10,9 +10,10 @@ void main() {
 
     float zNoise = cnoise3(position) * iThickness*6.0;
 
-    vPosition = vec3(noise.x, noise.y, position.z + zNoise);
+    vPosition = vec3(position.x - zNoise, noise.y, position.z + zNoise);
 
     gl_Position = projectionMatrix *
                 modelViewMatrix *
                 vec4(vPosition, 1.0);
+
 }
