@@ -3,6 +3,8 @@
 let WAGNER = require('@superguigui/wagner');
 let FXAAPass = require('@superguigui/wagner/src/passes/fxaa/FXAAPass');
 let TiltPass = require('@superguigui/wagner/src/passes/tiltshift/tiltshiftPass');
+let VignettePass = require('@superguigui/wagner/src/passes/vignette/vignettePass');
+
 
 export default {
 
@@ -26,6 +28,10 @@ export default {
 
             this._fxaaPass = new FXAAPass();
 
+            this._vignettePass = new VignettePass({
+                boost: 1
+            });
+
             this._tiltPass = new TiltPass({
                 bluramount: 3
             });
@@ -44,7 +50,14 @@ export default {
 
             this._composer.pass(this._fxaaPass);
 
-            if (this.isDrawing) this._composer.pass(this._tiltPass);
+
+            if (this.isDrawing) {
+
+                this._composer.pass(this._vignettePass);
+
+                this._composer.pass(this._tiltPass);
+
+            }
 
             this._composer.toScreen();
 

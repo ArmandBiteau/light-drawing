@@ -37,6 +37,11 @@ export default {
         loader: 'html'
       },
       {
+        test: /\.(glsl|frag|vert)$/,
+        exclude: /node_modules/,
+        loaders: ['raw', 'glslify']
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ['babel', 'eslint']

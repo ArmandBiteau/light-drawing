@@ -210,6 +210,7 @@ module.exports = function ( object, cursor, domElement ) {
 		// expose the rotation vector for convenience
 		this.object.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 
+		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -2);
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
 
