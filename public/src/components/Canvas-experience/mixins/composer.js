@@ -30,18 +30,18 @@ export default {
             this._fxaaPass = new FXAAPass();
 
             this._bloomPass = new BloomPass({
-                blurAmount: 0.9,
+                blurAmount: 2.0,
                 applyZoomBlur: false,
                 zoomBlurStrength: 0.4
             });
 
             this._vignettePass = new VignettePass({
                 boost: 1.0,
-                reduction: 0.7
+                reduction: 0.5
             });
 
             this._tiltPass = new TiltPass({
-                bluramount: 2.5
+                bluramount: 3
             });
 
             this._composer.setSize(window.innerWidth, window.innerHeight);
@@ -60,9 +60,9 @@ export default {
 
             this._composer.pass(this._bloomPass);
 
-            if (this.isDrawing) {
+            this._composer.pass(this._vignettePass);
 
-                this._composer.pass(this._vignettePass);
+            if (this.isDrawing) {
 
                 this._composer.pass(this._tiltPass);
 

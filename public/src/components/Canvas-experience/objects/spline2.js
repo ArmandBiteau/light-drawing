@@ -17,6 +17,14 @@ class Spline extends THREE.Line {
 
         let material = new THREE.ShaderMaterial({
             uniforms: {
+                iColor1: {
+                    type: 'c',
+                    value: new THREE.Color(0x6238FF)
+                },
+                iColor2: {
+                    type: 'c',
+                    value: new THREE.Color(0x4890FF)
+                },
                 iResolution: {
                     type: 'v3',
                     value: new THREE.Vector3(window.innerWidth, window.innerHeight, 0)

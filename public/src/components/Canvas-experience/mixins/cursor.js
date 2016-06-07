@@ -10,9 +10,9 @@ export default {
 
 		this._cursor = null;
 
-        this._cursorColor = 0xff0000;
+        this._cursorColor = 0xffffff;
 
-        this._cursorSize = 0.01;
+        this._cursorSize = 0.02;
 
 	},
 

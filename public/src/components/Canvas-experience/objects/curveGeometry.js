@@ -11,7 +11,7 @@ class CurveGeometry extends THREE.Geometry {
 
         this.points = array;
         this.count = count;
-        this._reduceAmount = 5;
+        this._reduceAmount = 6;
 
         let points = this.get3DPoints(this.points);
         let reduced = this.reducePoints(points, this._reduceAmount);

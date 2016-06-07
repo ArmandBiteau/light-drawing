@@ -33,12 +33,12 @@ export default {
 
             this.isDrawing = true;
 
-            for (var i = 0; i < this._splinesCount; i++) {
+            for (let i = 0; i < this._splinesCount; i++) {
 
                 this._splines.push(new Spline(this._cursor));
 
                 this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth;
-                this._splines[i].position.y = Math.random()/10 + this._splines[i]._lineWidth;
+                this._splines[i].position.y = Math.random()/3 + this._splines[i]._lineWidth;
                 this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth;
 
                 this._scene.add(this._splines[i]);
@@ -51,7 +51,7 @@ export default {
 
             this.isDrawing = false;
 
-            for (var i = 0; i < this._splinesCount; i++) {
+            for (let i = 0; i < this._splinesCount; i++) {
 
                 this._splines[i].stop();
 
@@ -65,7 +65,7 @@ export default {
 
             if (this.isDrawing) {
 
-                for (var i = 0; i < this._splinesCount; i++) {
+                for (let i = 0; i < this._splinesCount; i++) {
 
                     this._splines[i].update(delta);
 
