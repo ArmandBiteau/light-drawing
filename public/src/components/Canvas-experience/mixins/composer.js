@@ -30,14 +30,14 @@ export default {
             this._fxaaPass = new FXAAPass();
 
             this._bloomPass = new BloomPass({
-                blurAmount: 2.0,
-                applyZoomBlur: false,
-                zoomBlurStrength: 0.4
+                blurAmount: 3.0,
+                applyZoomBlur: true,
+                zoomBlurStrength: 0.1
             });
 
             this._vignettePass = new VignettePass({
-                boost: 1.0,
-                reduction: 0.5
+                boost: 1.1,
+                reduction: 1.0
             });
 
             this._tiltPass = new TiltPass({
