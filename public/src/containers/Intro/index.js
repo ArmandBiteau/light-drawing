@@ -3,7 +3,7 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    NEW_USER
+    IS_LOADED
 } from 'config/messages';
 
 import LoadingComponent from 'components/Loading';
@@ -20,6 +20,10 @@ export default Vue.extend({
         me: {
             type: Object,
             default: {}
+        },
+        roomId: {
+            type: String,
+            default: ''
         }
     },
 
@@ -34,14 +38,21 @@ export default Vue.extend({
 
     },
 
+    ready() {
+
+    },
+
     methods: {
 
         connect() {
 
-            this.socketEmitter.emit(NEW_USER, {name: this.me.name});
+            this.localEmitter.emit(IS_LOADED, {
+                status: true
+            });
 
-            this.$router.isLoaded = true;
-            this.$router.go('/connected');
+            // this.socketEmitter.emit(NEW_USER, {name: this.me.name});
+
+            this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
 
         }
 

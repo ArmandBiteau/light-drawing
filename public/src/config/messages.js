@@ -24,7 +24,14 @@ const messages = {
 
    ON_GET_USERS: 'GET USERS',
 
-   GET_USERS: 'GET USERS'
+   GET_USERS: 'GET USERS',
+
+
+   /*
+    * EXEPERIENCE
+    */
+
+   IS_LOADED: 'IS LOADED'
 
 };
 

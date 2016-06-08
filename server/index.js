@@ -13,9 +13,15 @@ import {
     NEW_USER, ON_NEW_USER, GET_USERS, ON_GET_USERS
 } from './config/messages';
 
-import User from './models/User';
+import Experience from './models/experience';
+import Player from './models/player';
+import Room from './models/room';
 
 var users = [];
+
+var tmp_room = new Room('fvrvs354tegtrge');
+
+var Expe = new Experience();
 
 class Manager {
 
@@ -31,29 +37,21 @@ class Manager {
 
     setEventHandlers() {
 
+        let _this = this;
+
         Socket.sockets.on('connection', (client) => {
 
             client.on('disconnect', () => {
 
-                if (client.user) {
-                    let userToDelete = users.indexOf(client.user);
-                    if (userToDelete !== -1) users.splice(userToDelete, 1);
-                    client.broadcast.emit(GET_USERS, {users: users});
-                }
+                // if (client.user) {
+                //     let userToDelete = users.indexOf(client.user);
+                //     if (userToDelete !== -1) users.splice(userToDelete, 1);
+                //     client.broadcast.emit(GET_USERS, {users: users});
+                // }
 
             });
 
-            client.on(ON_NEW_USER, (data) => {
-
-                client.user = new User(client.id, data.name)
-                users.push(client.user);
-
-                client.broadcast.emit(NEW_USER, {user: client.user});
-
-                client.emit(GET_USERS, {users: users});
-                client.broadcast.emit(GET_USERS, {users: users});
-
-            });
+            client.on(ON_NEW_USER, _this.onNewPlayer);
 
             client.on(ON_GET_USERS, (data) => {
 
@@ -62,6 +60,24 @@ class Manager {
             });
 
 		});
+
+    }
+
+    onNewPlayer(data) {
+
+        this.player = new Player(this.id, data.name, data.color, data.room);
+
+        console.log(this.player);
+
+        // this.room = Expe.roomById(data.room);
+        // this.room = tmp_room;
+
+        // this.room.addPlayer(this.player);
+
+        // this.broadcast.emit(NEW_USER, {user: this.player});
+
+        // this.emit(GET_USERS, {users: users});
+        // this.broadcast.emit(GET_USERS, {users: users});
 
     }
 

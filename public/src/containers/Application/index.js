@@ -9,7 +9,7 @@ import States from 'core/States';
 import debounce from 'lodash.debounce';
 
 import {
-    WINDOW_RESIZE, ON_NEW_USER, ON_GET_USERS
+    WINDOW_RESIZE, ON_NEW_USER, ON_GET_USERS, IS_LOADED
 } from 'config/messages';
 
 
@@ -19,7 +19,10 @@ export default Vue.extend({
 
     template: require('./template.html'),
 
-    emitterEvents: [],
+    emitterEvents: [{
+        message: IS_LOADED,
+        method: 'onLoaded'
+    }],
 
     domEvents: [{
         target: window,
@@ -39,11 +42,13 @@ export default Vue.extend({
 
         return {
             users: [{
-                name: 'Armand Biteau'
+                // name: 'Armand Biteau'
             }],
             me: {
-                name: 'Armand Biteau'
-            }
+                name: ''
+            },
+            roomId: '',
+            isReady: false
         };
 
     },
@@ -52,6 +57,14 @@ export default Vue.extend({
 
         this.addDeviceClass();
         this.addBrowserClass();
+
+        if (!this.isReady && this.$route.path != '/') {
+
+            this.roomId = this.$route.params ? this.$route.params.roomId : '';
+
+            this.$router.go({ name: 'connect', params: {roomId: this.roomId}});
+
+        }
 
     },
 
@@ -75,6 +88,10 @@ export default Vue.extend({
 
         onGetUsers(data) {
             this.users = data.users;
+        },
+
+        onLoaded() {
+            this.isReady = true;
         },
 
         /*

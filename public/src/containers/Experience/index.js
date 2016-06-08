@@ -2,9 +2,9 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
-// import {
-//     WINDOW_RESIZE
-// } from 'config/messages';
+import {
+    // IS_LOADED
+} from 'config/messages';
 
 import CanvasComponent from 'components/Canvas-experience';
 
@@ -20,6 +20,14 @@ export default Vue.extend({
         users: {
             type: Array,
             default: []
+        },
+        me: {
+            type: Object,
+            default: {}
+        },
+        roomId: {
+            type: String,
+            default: ''
         }
     },
 
@@ -27,6 +35,7 @@ export default Vue.extend({
 
         return {
             _hidden: null
+            // isLoaded: false
         };
     },
 
