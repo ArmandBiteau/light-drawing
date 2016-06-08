@@ -31,11 +31,7 @@ class Router extends VueRouter {
 
         this.map({
 
-            // '/drawing': {
-            //     name: "experience",
-            //     component: ExperiencePageComponent
-            // },
-            '/connect/:roomId': {
+            '/:roomId/connect': {
                 name: "connect",
                 component: IntroPageComponent
             },
@@ -47,7 +43,6 @@ class Router extends VueRouter {
                 name: "intro",
                 component: IntroPageComponent
             }
-
 
         });
 

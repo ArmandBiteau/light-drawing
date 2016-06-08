@@ -48,21 +48,17 @@ export default Vue.extend({
                 id: '',
                 name: 'Armand Biteau',
                 color: {
-                    name: 'blue',
-                    gradient: [
-                        0xF6F6F6, //white
-                        0x6238FF, //purple
-                        0x283BEF, //blue
-                        0x6238FF, //purple
-                        0x4890FF, //cyan
-                        0x4890FF, //cyan
-                        0x6DE49B  //green
-                    ]
+                    name: '',
+                    gradient: []
                 }
             },
             roomId: '',
             isReady: false
         };
+
+    },
+
+    created() {
 
     },
 

@@ -61,6 +61,7 @@ export default Vue.extend({
         getDrawingParameters() {
 
             this.colors = Colors;
+            this.me.color = this.colors[0];
 
             // this.socketEmitter.emit(GET_COLORS, {});
 
