@@ -6,11 +6,11 @@ uniform float iThickness;
 
 void main() {
 
-    vec3 noise = position + ( cnoise3(position) * iThickness*3.0);
+    vec3 vec3noise = position + ( cnoise3(position) * iThickness*5.0)/5.0;
 
-    float zNoise = cnoise3(position) * iThickness*6.0;
+    float noise = cnoise3(position) * iThickness*5.0;
 
-    vPosition = vec3(position.x - zNoise, noise.y, position.z + zNoise);
+    vPosition = vec3(position.x - noise, vec3noise.y, position.z + noise);
 
     gl_Position = projectionMatrix *
                 modelViewMatrix *

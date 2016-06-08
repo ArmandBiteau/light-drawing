@@ -13,11 +13,18 @@ export default {
 
         this.isDrawing = false;
 
-        this._currentSpline = null;
-        this._otherSpline = null;
-
         this._splines = [];
         this._splinesCount = 60;
+
+        this._colors = [
+            0xF6F6F6, //white
+            0x6238FF, //purple
+            0x283BEF, //blue
+            0x6238FF, //purple
+            0x4890FF,  //cyan
+            0x4890FF,  //cyan
+            0x6DE49B //green
+        ];
 
 	},
 
@@ -33,10 +40,12 @@ export default {
 
             for (let i = 0; i < this._splinesCount; i++) {
 
-                this._splines.push(new Spline(this._cursor));
+                let color = this._colors[Math.floor( Math.random() * (this._colors.length-1) )];
+
+                this._splines.push(new Spline(color, this._cursor));
 
                 this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth;
-                this._splines[i].position.y = Math.random()/3 + this._splines[i]._lineWidth;
+                this._splines[i].position.y = Math.random()/5 + this._splines[i]._lineWidth;
                 this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth;
 
                 this._scene.add(this._splines[i]);

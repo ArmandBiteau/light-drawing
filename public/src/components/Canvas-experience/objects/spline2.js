@@ -7,7 +7,7 @@ import CurveGeometry from './curveGeometry';
 
 class Spline extends THREE.Line {
 
-    constructor(cursor) {
+    constructor(color, cursor) {
 
         let MAX_POINTS = 600;
         let LINE_WIDTH = Math.random()/5;
@@ -19,11 +19,7 @@ class Spline extends THREE.Line {
             uniforms: {
                 iColor1: {
                     type: 'c',
-                    value: new THREE.Color(0x6238FF)
-                },
-                iColor2: {
-                    type: 'c',
-                    value: new THREE.Color(0x4890FF)
+                    value: new THREE.Color(color)
                 },
                 iResolution: {
                     type: 'v3',

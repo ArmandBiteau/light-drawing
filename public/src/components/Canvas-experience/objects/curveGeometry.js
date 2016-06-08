@@ -16,7 +16,7 @@ class CurveGeometry extends THREE.Geometry {
         let points = this.get3DPoints(this.points);
         let reduced = this.reducePoints(points, this._reduceAmount);
         let curve = new THREE.CatmullRomCurve3(reduced);
-        this.vertices = curve.getPoints(count/this._reduceAmount*3);
+        this.vertices = curve.getPoints(count/this._reduceAmount*5);
 
     }
 
