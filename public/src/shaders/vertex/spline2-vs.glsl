@@ -3,12 +3,13 @@
 
 varying vec3 vPosition;
 uniform float iThickness;
+uniform float iDistortAmount;
 
 void main() {
 
-    vec3 vec3noise = position + ( cnoise3(position) * iThickness*5.0)/5.0;
+    vec3 vec3noise = position + ( cnoise3(position) * (iDistortAmount/30.0));
 
-    float noise = cnoise3(position) * iThickness*5.0;
+    float noise = cnoise3(position) * (2.0*iDistortAmount/30.0);
 
     vPosition = vec3(position.x - noise, vec3noise.y, position.z + noise);
 

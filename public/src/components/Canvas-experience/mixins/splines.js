@@ -2,10 +2,7 @@
 
 // import THREE from 'three';
 
-// import Spline from '../objects/spline';
-import Spline from '../objects/spline2';
-// import Spline from '../objects/spline3';
-
+import Spline from '../objects/spline';
 
 export default {
 
@@ -16,14 +13,16 @@ export default {
         this._splines = [];
         this._splinesCount = 60;
 
+        this._distortAmount = 11.0;
+
         this._colors = [
             0xF6F6F6, //white
             0x6238FF, //purple
             0x283BEF, //blue
             0x6238FF, //purple
-            0x4890FF,  //cyan
-            0x4890FF,  //cyan
-            0x6DE49B //green
+            0x4890FF, //cyan
+            0x4890FF, //cyan
+            0x6DE49B  //green
         ];
 
 	},
@@ -42,11 +41,11 @@ export default {
 
                 let color = this._colors[Math.floor( Math.random() * (this._colors.length-1) )];
 
-                this._splines.push(new Spline(color, this._cursor));
+                this._splines.push(new Spline(this._distortAmount, color, this._cursor));
 
-                this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth;
-                this._splines[i].position.y = Math.random()/5 + this._splines[i]._lineWidth;
-                this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth;
+                this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth/this._distortAmount;
+                this._splines[i].position.y = Math.random()/5 + this._splines[i]._lineWidth/this._distortAmount;
+                this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth/this._distortAmount;
 
                 this._scene.add(this._splines[i]);
 

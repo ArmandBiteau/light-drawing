@@ -3,82 +3,83 @@
 
 import THREE from 'three';
 
-class Spline extends THREE.Mesh {
+import CurveGeometry from './curveGeometry';
 
-    constructor(cursor) {
+class Spline extends THREE.Line {
 
-        let MAX_FACES = 180;
-        let THICKNESS = 0.2;
+    constructor(distort, color, cursor) {
 
-        let geometry = new THREE.PlaneBufferGeometry(0.1, 0.1, 0.1, MAX_FACES);
+        let MAX_POINTS = 600;
+        let LINE_WIDTH = Math.random()*3;
+        let REDUCE_AMOUNT = 5;
+
+        let geometry = new THREE.BufferGeometry();
 
         let material = new THREE.ShaderMaterial({
             uniforms: {
-                viewport: {
-                    type: 'vec2',
-                    value: new THREE.Vector2(window.innerWidth, window.innerHeight)
+                iDistortAmount: {
+                    type: 'f',
+                    value: distort
+                },
+                iColor1: {
+                    type: 'c',
+                    value: new THREE.Color(color)
+                },
+                iResolution: {
+                    type: 'v3',
+                    value: new THREE.Vector3(window.innerWidth, window.innerHeight, 0)
+                },
+                iThickness: {
+                    type: 'f',
+                    value: LINE_WIDTH
+                },
+                iTimeDelta: {
+                    type: 'f',
+                    value: 0
                 }
             },
-            vertexShader: require('shaders/vertex/spline-vs.glsl'),
-            fragmentShader: require('shaders/fragment/spline-fs.glsl'),
-            transparent: true,
-            side: 2
+            vertexShader: require('shaders/vertex/spline2-vs.glsl'),
+            fragmentShader: require('shaders/fragment/spline2-fs.glsl'),
+            linewidth: LINE_WIDTH
         });
 
         super(geometry, material);
 
         this.cursor = cursor;
-        this._pointCount = 0;
+        this._maxPoints = MAX_POINTS;
+        this._lineWidth = LINE_WIDTH;
+        this._reduceAmount = REDUCE_AMOUNT;
+
         this._centerCount = 0;
-        this._lastCount = 0;
-        this._nextCount = 0;
+        this._frame = 0.0;
 
-        this._thickness = THICKNESS;
+        this.geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 3));
 
-        this.geometry.addAttribute('center', new THREE.BufferAttribute(new Float32Array(this.geometry.attributes.position.array.length), 3));
-
-        this.geometry.setDrawRange(0, 2, 0);
+        this.geometry.setDrawRange(0, 2);
 
     }
 
-    update() {
+    update(delta) {
 
-        // DOUBLE CENTER POSITION ATTRIBUTE
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.x;
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.y;
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.z;
+        if (this._centerCount >= this._maxPoints) return;
 
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.x;
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.y;
-        this.geometry.attributes.center.array[this._centerCount++] = this.cursor.position.z;
+        this.material.uniforms.iTimeDelta.value = delta;
 
-        let leftPoint = this.cursor.clone();
-        let rightPoint = this.cursor.clone();
-
-        leftPoint.translateY(-this._thickness/2);
-        rightPoint.translateY(this._thickness/2);
-
-        // CREATE LEFT AND RIGHT POINTS
-        this.geometry.attributes.position.array[this._pointCount++] = leftPoint.position.x;
-        this.geometry.attributes.position.array[this._pointCount++] = leftPoint.position.y;
-        this.geometry.attributes.position.array[this._pointCount++] = leftPoint.position.z;
-
-        this.geometry.attributes.position.array[this._pointCount++] = rightPoint.position.x;
-        this.geometry.attributes.position.array[this._pointCount++] = rightPoint.position.y;
-        this.geometry.attributes.position.array[this._pointCount++] = rightPoint.position.z;
-
-        this.geometry.computeVertexNormals();
-
+        this.geometry.attributes.position.array[this._centerCount++] = this.cursor.position.x;
+        this.geometry.attributes.position.array[this._centerCount++] = this.cursor.position.y;
+        this.geometry.attributes.position.array[this._centerCount++] = this.cursor.position.z;
         this.geometry.attributes.position.needsUpdate = true;
-        this.geometry.attributes.center.needsUpdate = true;
 
-        this.geometry.setDrawRange(0, this._pointCount-6);
+        if (this._centerCount >=3) this.geometry.setDrawRange(0, this._centerCount/3);
+
+        this._frame++;
 
     }
 
     stop() {
 
         clearInterval(this._interval);
+        this.geometry = new CurveGeometry(this.geometry.attributes.position.array, this._centerCount);
 
     }
 
