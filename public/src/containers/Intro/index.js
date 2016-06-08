@@ -8,6 +8,8 @@ import {
 
 import LoadingComponent from 'components/Loading';
 
+import Colors from 'core/DrawingDatas';
+
 export default Vue.extend({
 
     mixins: [EventManagerMixin],
@@ -16,10 +18,19 @@ export default Vue.extend({
 
     emitterEvents: [],
 
+    // socketEvents: [{
+    //     message: GET_COLORS,
+    //     method: 'onGetColors'
+    // }],
+
     props: {
         me: {
             type: Object,
             default: {}
+        },
+        users: {
+            type: Array,
+            default: []
         },
         roomId: {
             type: String,
@@ -30,7 +41,8 @@ export default Vue.extend({
     data() {
 
         return {
-            _hidden: null
+            _hidden: null,
+            colors: []
         };
     },
 
@@ -40,9 +52,19 @@ export default Vue.extend({
 
     ready() {
 
+        this.getDrawingParameters();
+
     },
 
     methods: {
+
+        getDrawingParameters() {
+
+            this.colors = Colors;
+
+            // this.socketEmitter.emit(GET_COLORS, {});
+
+        },
 
         connect() {
 
@@ -51,8 +73,6 @@ export default Vue.extend({
             });
 
             // this.socketEmitter.emit(NEW_USER, {name: this.me.name});
-
-            this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
 
         }
 

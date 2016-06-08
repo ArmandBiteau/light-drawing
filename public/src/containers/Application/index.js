@@ -45,7 +45,20 @@ export default Vue.extend({
                 // name: 'Armand Biteau'
             }],
             me: {
-                name: ''
+                id: '',
+                name: 'Armand Biteau',
+                color: {
+                    name: 'blue',
+                    gradient: [
+                        0xF6F6F6, //white
+                        0x6238FF, //purple
+                        0x283BEF, //blue
+                        0x6238FF, //purple
+                        0x4890FF, //cyan
+                        0x4890FF, //cyan
+                        0x6DE49B  //green
+                    ]
+                }
             },
             roomId: '',
             isReady: false
@@ -91,7 +104,11 @@ export default Vue.extend({
         },
 
         onLoaded() {
+
             this.isReady = true;
+
+            this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
+
         },
 
         /*

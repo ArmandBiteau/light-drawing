@@ -15,15 +15,17 @@ export default {
 
         this._distortAmount = 11.0;
 
-        this._colors = [
-            0xF6F6F6, //white
-            0x6238FF, //purple
-            0x283BEF, //blue
-            0x6238FF, //purple
-            0x4890FF, //cyan
-            0x4890FF, //cyan
-            0x6DE49B  //green
-        ];
+        // this._colors = [
+        //     0xF6F6F6, //white
+        //     0x6238FF, //purple
+        //     0x283BEF, //blue
+        //     0x6238FF, //purple
+        //     0x4890FF, //cyan
+        //     0x4890FF, //cyan
+        //     0x6DE49B  //green
+        // ];
+
+        this._myColors = this.me.color.gradient;
 
 	},
 
@@ -39,7 +41,7 @@ export default {
 
             for (let i = 0; i < this._splinesCount; i++) {
 
-                let color = this._colors[Math.floor( Math.random() * (this._colors.length-1) )];
+                let color = this._myColors[Math.floor( Math.random() * (this._myColors.length-1) )];
 
                 this._splines.push(new Spline(this._distortAmount, color, this._cursor));
 

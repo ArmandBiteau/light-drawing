@@ -51,6 +51,14 @@ export default Vue.extend({
         users: {
             type: Array,
             default: []
+        },
+        me: {
+            type: Object,
+            default: {}
+        },
+        roomId: {
+            type: String,
+            default: ''
         }
     },
 

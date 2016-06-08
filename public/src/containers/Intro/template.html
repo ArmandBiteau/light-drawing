@@ -6,7 +6,13 @@
 
 		<!-- <loading-component></loading-component> -->
 
+		<label for="name">Username</label>
 		<input class="intro-input" type="text" name="name" v-model="me.name" value="{{me.name}}">
+
+		<label for="color">Color</label>
+		<select class="intro-input" name="color" v-model="me.color">
+			<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
+		</select>
 
 		<button class="intro-link" v-on:click="connect">--- Connect ---</button>
 
