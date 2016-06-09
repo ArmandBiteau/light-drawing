@@ -43,7 +43,9 @@ class Manager {
 
             client.on('disconnect', () => {
 
-                // if (client.user) {
+                // if (client.player) {
+                //     client.room.removePlayer(client.player);
+                //
                 //     let userToDelete = users.indexOf(client.user);
                 //     if (userToDelete !== -1) users.splice(userToDelete, 1);
                 //     client.broadcast.emit(GET_USERS, {users: users});

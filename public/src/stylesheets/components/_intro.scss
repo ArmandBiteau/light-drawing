@@ -1,27 +1,56 @@
 .intro-wrapper {
-  text-align: center;
+    // text-align: center;
 }
 
 .intro-container {
-  @include centerXY;
+    @include centerXY;
+    width: auto;
+    max-width: 250px;
 }
 
 .intro-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: $color-green;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $color-green;
+    margin-bottom: 2em;
 }
 
+.intro-name {
+    margin-top: 2em;
+}
+
+.intro-username {
+    margin-top: 2em;
+}
+
+.intro-color {
+    margin-top: 2em;
+}
+
+.intro-label {
+    position: relative;
+    width: 100%;
+    font-size: 1.2rem;
+}
 .intro-input {
-    margin-top: 3em;
     font-weight: bold;
+    width: 100%;
+    margin-top: 0.75em;
+    padding: 0.5em;
+    color:rgba($color-black, 0.7);
 }
 
 .intro-link {
+    text-align: center;
     display: block;
-    margin-top: 1em;
-    font-size: 1.3rem;
+    margin-top: 2em;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: $color-green;
+    background: $color-green;
+    color: #fff;
     cursor: pointer;
+    padding: 1em;
+    border-radius: 4px;
+    width: 100%;
 }

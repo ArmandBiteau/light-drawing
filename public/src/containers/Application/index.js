@@ -4,12 +4,14 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
+import PopupMessage from 'components/PopupMessage';
+
 import States from 'core/States';
 
 import debounce from 'lodash.debounce';
 
 import {
-    WINDOW_RESIZE, ON_NEW_USER, ON_GET_USERS, IS_LOADED
+    WINDOW_RESIZE, ON_NEW_USER, ON_GET_USERS, IS_LOADED, POPUP_MESSAGE
 } from 'config/messages';
 
 
@@ -17,11 +19,18 @@ export default Vue.extend({
 
     mixins: [EventManagerMixin],
 
+    components: {
+        'popup-message': PopupMessage
+    },
+
     template: require('./template.html'),
 
     emitterEvents: [{
         message: IS_LOADED,
         method: 'onLoaded'
+    },{
+        message: POPUP_MESSAGE,
+        method: 'onPopupMessage'
     }],
 
     domEvents: [{
@@ -41,6 +50,10 @@ export default Vue.extend({
     data() {
 
         return {
+            popupMessage: {
+                type: '',
+                message: ''
+            },
             users: [{
                 // name: 'Armand Biteau'
             }],
@@ -53,6 +66,7 @@ export default Vue.extend({
                 }
             },
             roomId: '',
+            entryPoint: '',
             isReady: false
         };
 
@@ -67,7 +81,9 @@ export default Vue.extend({
         this.addDeviceClass();
         this.addBrowserClass();
 
-        if (!this.isReady && this.$route.path != '/') {
+        this.entryPoint = this.$route.path;
+
+        if (!this.isReady && this.entryPoint != '/') {
 
             this.roomId = this.$route.params ? this.$route.params.roomId : '';
 
@@ -99,13 +115,6 @@ export default Vue.extend({
             this.users = data.users;
         },
 
-        onLoaded() {
-
-            this.isReady = true;
-
-            this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
-
-        },
 
         /*
         * Events
@@ -115,6 +124,34 @@ export default Vue.extend({
                 width: window.innerWidth,
                 height: window.innerHeight
             });
+        },
+
+        onLoaded(data) {
+
+            this.me = data.me;
+            this.roomId = data.roomId;
+
+            this.isReady = true;
+
+            // EVENT TO THE SERVER !!!!!
+
+            this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
+
+        },
+
+        onPopupMessage(data) {
+
+            this.popupMessage.type = data.type;
+            this.popupMessage.message = data.message;
+
+            window.setTimeout(() => {
+
+                this.popupMessage.type = '';
+                this.popupMessage.message = '';
+
+            }, 3000);
+
         }
+
     }
 });

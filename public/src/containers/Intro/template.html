@@ -1,20 +1,38 @@
 <div class="intro-wrapper">
 
+	<!-- <loading-component></loading-component> -->
+
 	<div class="intro-container">
 
-		<h1 class="intro-title">Connection</h1>
+		<h1 class="intro-title" v-if="entryPoint != '/'">Collaborate to {{roomId}}</h1>
+		<h1 class="intro-title" v-if="entryPoint == '/'">Create a new drawing</h1>
 
-		<!-- <loading-component></loading-component> -->
+		<div class="intro-name" v-if="entryPoint == '/'">
 
-		<label for="name">Username</label>
-		<input class="intro-input" type="text" name="name" v-model="me.name" value="{{me.name}}">
+			<label class="intro-label" for="room">Give your drawing a name</label>
+			<input class="intro-input" type="text" name="room" v-model="roomId" value="{{roomId}}" required>
 
-		<label for="color">Color</label>
-		<select class="intro-input" name="color" v-model="me.color">
-			<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
-		</select>
+		</div>
 
-		<button class="intro-link" v-on:click="connect">--- Connect ---</button>
+		<div class="intro-username">
+
+			<label class="intro-label" for="name">Choose a username</label>
+			<input class="intro-input" type="text" name="name" v-model="me.name" value="{{me.name}}" required>
+
+		</div>
+
+		<div class="intro-color">
+
+			<label class="intro-label" for="color">Select your color</label>
+			<select class="intro-input" name="color" v-model="me.color" required>
+				<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
+			</select>
+
+		</div>
+
+		<!-- START CONNECTION REGARDING THE ENTRY POINT -->
+		<button type="submit" class="intro-link" v-on:click="connect">Start drawing</button>
+		<!-- END CONNECTION REGARDING THE ENTRY POINT -->
 
 	</div>
 

@@ -1,5 +1,7 @@
 <div v:el="wrapper">
 
-	<router-view :me="me" :room-id="roomId" :users="users"></router-view>
+	<popup-message v-show="popupMessage.message" :popup-message="popupMessage"></popup-message>
+
+	<router-view :entry-point="entryPoint" :me="me" :room-id="roomId" :users="users"></router-view>
 
 </div>

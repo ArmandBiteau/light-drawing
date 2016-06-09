@@ -26,12 +26,17 @@ const messages = {
 
    GET_USERS: 'GET USERS',
 
-
    /*
-    * EXEPERIENCE
+    * EXPERIENCE
     */
 
-   IS_LOADED: 'IS LOADED'
+   IS_LOADED: 'IS LOADED',
+
+   /*
+    * APPLICATION
+    */
+
+   POPUP_MESSAGE: 'POPUP MESSAGE'
 
 };
 

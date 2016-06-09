@@ -3,7 +3,7 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    IS_LOADED
+    IS_LOADED, POPUP_MESSAGE
 } from 'config/messages';
 
 import LoadingComponent from 'components/Loading';
@@ -18,12 +18,11 @@ export default Vue.extend({
 
     emitterEvents: [],
 
-    // socketEvents: [{
-    //     message: GET_COLORS,
-    //     method: 'onGetColors'
-    // }],
-
     props: {
+        entryPoint: {
+            type: String,
+            default: ''
+        },
         me: {
             type: Object,
             default: {}
@@ -63,17 +62,26 @@ export default Vue.extend({
             this.colors = Colors;
             this.me.color = this.colors[0];
 
-            // this.socketEmitter.emit(GET_COLORS, {});
-
         },
 
         connect() {
 
-            this.localEmitter.emit(IS_LOADED, {
-                status: true
-            });
+            if (this.me.name && this.roomId && this.me.color) {
 
-            // this.socketEmitter.emit(NEW_USER, {name: this.me.name});
+                this.localEmitter.emit(IS_LOADED, {
+                    me: this.me,
+                    roomId: this.roomId,
+                    status: true
+                });
+
+            } else {
+
+                this.localEmitter.emit(POPUP_MESSAGE, {
+                    type: 'error',
+                    message: 'Form not correctly filled out'
+                });
+
+            }
 
         }
 
