@@ -59,11 +59,11 @@ class Spline extends THREE.Line {
 
     }
 
-    update(delta) {
+    update() {
 
         if (this._centerCount >= this._maxPoints) return;
 
-        this.material.uniforms.iTimeDelta.value = delta;
+        this.material.uniforms.iTimeDelta.value = this._frame;
 
         this.geometry.attributes.position.array[this._centerCount++] = this.cursor.position.x;
         this.geometry.attributes.position.array[this._centerCount++] = this.cursor.position.y;
@@ -78,7 +78,6 @@ class Spline extends THREE.Line {
 
     stop() {
 
-        clearInterval(this._interval);
         this.geometry = new CurveGeometry(this.geometry.attributes.position.array, this._centerCount);
 
     }

@@ -32,7 +32,7 @@ export default {
             this._bloomPass = new BloomPass({
                 blurAmount: 3.0,
                 applyZoomBlur: true,
-                zoomBlurStrength: 0.1
+                zoomBlurStrength: 0.15
             });
 
             this._vignettePass = new VignettePass({

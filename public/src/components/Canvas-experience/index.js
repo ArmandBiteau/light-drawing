@@ -173,7 +173,7 @@ export default Vue.extend({
 
 			this._renderer.setSize(window.innerWidth, window.innerHeight);
 
-			this._renderer.setClearColor(0x181d24, 1);
+			this._renderer.setClearColor(0x181d24, 1.0);
 
             this._domElement = this.$el;
 

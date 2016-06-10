@@ -60,22 +60,20 @@ export default {
             this.isDrawing = false;
 
             for (let i = 0; i < this._splinesCount; i++) {
-
                 this._splines[i].stop();
-
             }
 
             this._splines = [];
 
         },
 
-        splinesUpdate(delta) {
+        splinesUpdate() {
 
             if (this.isDrawing) {
 
                 for (let i = 0; i < this._splinesCount; i++) {
 
-                    this._splines[i].update(delta);
+                    this._splines[i].update();
 
                 }
 

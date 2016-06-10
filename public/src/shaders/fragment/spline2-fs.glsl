@@ -15,6 +15,7 @@ void main() {
     float g = iColor1.g + snoise2(vPosition.xz)/5.0;
     float b = iColor1.b + snoise2(vPosition.yz)/10.0;
 
+    // float a = sin(iTimeDelta/10.0);
     float a = 1.0;
 
     gl_FragColor = vec4(r,
