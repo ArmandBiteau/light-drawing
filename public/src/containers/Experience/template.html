@@ -1,18 +1,8 @@
 
 <div class="experience-wrapper">
 
+	<menu-drawers :users="users" :me="me"></menu-drawers>
+
 	<canvas-experience :users="users" :room-id="roomId" :me="me"></canvas-experience>
-
-	<!-- <div class="experience-container">
-
-		<h1 class="experience-title">Connected users</h1>
-
-		<ul class="experience-list">
-			<li class="experience-list-element" v-for="user in users">
-				{{ user.name }}
-			</li>
-		</ul>
-
-	</div> -->
 
 </div>

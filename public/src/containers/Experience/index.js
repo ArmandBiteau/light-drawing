@@ -3,10 +3,11 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    // IS_LOADED
+    ON_NEW_USER
 } from 'config/messages';
 
 import CanvasComponent from 'components/Canvas-experience';
+import MenuDrawersComponent from 'components/Menu-drawers';
 
 export default Vue.extend({
 
@@ -35,7 +36,6 @@ export default Vue.extend({
 
         return {
             _hidden: null
-            // isLoaded: false
         };
     },
 
@@ -45,6 +45,8 @@ export default Vue.extend({
 
     ready() {
 
+        this.socketEmitter.emit(ON_NEW_USER, {user: this.me, roomId: this.roomId});
+
     },
 
     methods: {
@@ -52,6 +54,7 @@ export default Vue.extend({
     },
 
     components: {
-        'canvas-experience': CanvasComponent
+        'canvas-experience': CanvasComponent,
+        'menu-drawers': MenuDrawersComponent
     }
 });

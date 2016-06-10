@@ -8,7 +8,11 @@ class Experience {
 
 	}
 
-    addRoom() {
+    newRoom(id) {
+
+		let room = new Room(id);
+		this.rooms.push(room);
+		return room;
 
     }
 
@@ -28,10 +32,11 @@ class Experience {
 
         for (var i = 0; i < this.rooms.length; i++) {
 
-            if(this.rooms[i].id == id) return true;
+            if(this.rooms[i].id == id) return this.rooms[i];
 
         }
-        return false
+
+        return this.newRoom(id);
 
     }
 

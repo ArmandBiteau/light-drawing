@@ -1,0 +1,37 @@
+.menu-drawers-wrapper {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+    z-index: 1000;
+    background: $color-white;
+    border-radius: 4px;
+}
+
+.menu-drawers-container {
+    width: auto;
+    max-width: 250px;
+    padding: 2em;
+}
+
+.menu-drawers-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $color-green;
+    margin-bottom: 1em;
+}
+
+.menu-drawers-names {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.menu-drawers-names-element {
+    margin-bottom: 0.5em;
+    color: $color-black;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.menu-drawers-color {
+}

@@ -19,8 +19,6 @@ import Room from './models/room';
 
 var users = [];
 
-var tmp_room = new Room('fvrvs354tegtrge');
-
 var Expe = new Experience();
 
 class Manager {
@@ -41,45 +39,52 @@ class Manager {
 
         Socket.sockets.on('connection', (client) => {
 
+            console.log('client connect');
+
             client.on('disconnect', () => {
 
-                // if (client.player) {
-                //     client.room.removePlayer(client.player);
-                //
-                //     let userToDelete = users.indexOf(client.user);
-                //     if (userToDelete !== -1) users.splice(userToDelete, 1);
-                //     client.broadcast.emit(GET_USERS, {users: users});
-                // }
+                console.log('client disconnect');
+
+                if (client.player) {
+                    client.room.removePlayer(client.player);
+
+                    console.log(client.room.players);
+
+                    client.broadcast.to(client.room.id).emit(GET_USERS, {users: client.room.players});
+                }
 
             });
 
-            client.on(ON_NEW_USER, _this.onNewPlayer);
+            client.on(ON_NEW_USER, (data) => {
+
+                console.log('client wants to play');
+
+                client.player = new Player(client.id, data.user.name, data.user.color);
+
+                console.log('new player :', client.player);
+
+                client.room = Expe.checkRoom(data.roomId);
+
+                client.room.addPlayer(client.player);
+
+                client.join(client.room.id);
+
+                client.broadcast.to(client.room.id).emit(NEW_USER, client.player);
+
+                client.emit(GET_USERS,{users: client.room.players});
+                client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
+
+                console.log('player\'s room :', client.room);
+
+            });
 
             client.on(ON_GET_USERS, (data) => {
 
-                client.emit(GET_USERS, {users: users});
+                client.emit(GET_USERS, {users: client.room.players});
 
             });
 
 		});
-
-    }
-
-    onNewPlayer(data) {
-
-        this.player = new Player(this.id, data.name, data.color, data.room);
-
-        console.log(this.player);
-
-        // this.room = Expe.roomById(data.room);
-        // this.room = tmp_room;
-
-        // this.room.addPlayer(this.player);
-
-        // this.broadcast.emit(NEW_USER, {user: this.player});
-
-        // this.emit(GET_USERS, {users: users});
-        // this.broadcast.emit(GET_USERS, {users: users});
 
     }
 

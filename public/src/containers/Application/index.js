@@ -4,7 +4,7 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
-import PopupMessage from 'components/PopupMessage';
+import PopupMessage from 'components/Message-popup';
 
 import States from 'core/States';
 
@@ -54,9 +54,7 @@ export default Vue.extend({
                 type: '',
                 message: ''
             },
-            users: [{
-                // name: 'Armand Biteau'
-            }],
+            users: [],
             me: {
                 id: '',
                 name: 'Armand Biteau',
@@ -78,9 +76,6 @@ export default Vue.extend({
 
     ready() {
 
-        this.addDeviceClass();
-        this.addBrowserClass();
-
         this.entryPoint = this.$route.path;
 
         if (!this.isReady && this.entryPoint != '/') {
@@ -90,6 +85,9 @@ export default Vue.extend({
             this.$router.go({ name: 'connect', params: {roomId: this.roomId}});
 
         }
+
+        this.addDeviceClass();
+        this.addBrowserClass();
 
     },
 
@@ -107,18 +105,25 @@ export default Vue.extend({
             this.$el.classList.add(States.deviceType + '-device');
         },
 
-        onNewUser() {
-            console.log('New user');
+        /*
+        * SOCKET EVENTS
+        */
+
+        onNewUser(user) {
+            this.localEmitter.emit(POPUP_MESSAGE, {
+                type: 'event',
+                message: 'New painter: '+user.name+' !'
+            });
         },
 
         onGetUsers(data) {
             this.users = data.users;
         },
 
-
         /*
-        * Events
+        * LOCAL EVENTS
         */
+
         broadcastWindowSize() {
             this.localEmitter.emit(WINDOW_RESIZE, {
                 width: window.innerWidth,
@@ -130,10 +135,7 @@ export default Vue.extend({
 
             this.me = data.me;
             this.roomId = data.roomId;
-
             this.isReady = true;
-
-            // EVENT TO THE SERVER !!!!!
 
             this.$router.go({ name: 'experience', params: { roomId: this.roomId }});
 
