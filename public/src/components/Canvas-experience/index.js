@@ -56,6 +56,10 @@ export default Vue.extend({
             type: Object,
             default: {}
         },
+        room: {
+            id: '',
+            name: ''
+        },
         roomId: {
             type: String,
             default: ''

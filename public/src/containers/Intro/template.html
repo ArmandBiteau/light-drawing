@@ -4,13 +4,13 @@
 
 	<div class="intro-container">
 
-		<h1 class="intro-title" v-if="entryPoint != '/'">Collaborate on {{roomId}}</h1>
+		<h1 class="intro-title" v-if="entryPoint != '/'">Collaborate on {{room.name}}</h1>
 		<h1 class="intro-title" v-if="entryPoint == '/'">Create a new drawing</h1>
 
 		<div class="intro-name" v-if="entryPoint == '/'">
 
 			<label class="intro-label" for="room">Give your drawing a name</label>
-			<input class="intro-input" type="text" name="room" v-model="roomId" value="{{roomId}}" required>
+			<input class="intro-input" type="text" name="room" v-model="room.name" value="{{room.name}}" required>
 
 		</div>
 

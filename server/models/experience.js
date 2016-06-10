@@ -8,11 +8,23 @@ class Experience {
 
 	}
 
-    newRoom(id) {
+    newRoom(room) {
 
-		let room = new Room(id);
-		this.rooms.push(room);
-		return room;
+		let newRoom = new Room(room.id, room.name);
+		this.rooms.push(newRoom);
+		return newRoom;
+
+    }
+
+	removeRoom(room) {
+
+		let roomToDelete = this.rooms.indexOf(room);
+
+	    if (roomToDelete !== -1) {
+
+	    	this.rooms.splice(roomToDelete, 1);
+
+	    }
 
     }
 
@@ -28,15 +40,15 @@ class Experience {
 
     }
 
-    checkRoom(id) {
+    checkRoom(room) {
 
         for (var i = 0; i < this.rooms.length; i++) {
 
-            if(this.rooms[i].id == id) return this.rooms[i];
+            if(this.rooms[i].id == room.id) return this.rooms[i];
 
         }
 
-        return this.newRoom(id);
+        return this.newRoom(room);
 
     }
 

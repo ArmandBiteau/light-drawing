@@ -3,7 +3,7 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    ON_NEW_USER
+    NEW_USER
 } from 'config/messages';
 
 import CanvasComponent from 'components/Canvas-experience';
@@ -26,6 +26,10 @@ export default Vue.extend({
             type: Object,
             default: {}
         },
+        room: {
+            id: '',
+            name: ''
+        },
         roomId: {
             type: String,
             default: ''
@@ -45,7 +49,7 @@ export default Vue.extend({
 
     ready() {
 
-        this.socketEmitter.emit(ON_NEW_USER, {user: this.me, roomId: this.roomId});
+        this.socketEmitter.emit(NEW_USER, {user: this.me, room: this.room});
 
     },
 

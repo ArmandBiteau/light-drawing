@@ -10,7 +10,7 @@ import Server from './core/Server';
 import Socket from './core/Socket';
 
 import {
-    NEW_USER, ON_NEW_USER, GET_USERS, ON_GET_USERS
+    NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME
 } from './config/messages';
 
 import Experience from './models/experience';
@@ -35,52 +35,82 @@ class Manager {
 
     setEventHandlers() {
 
-        let _this = this;
-
         Socket.sockets.on('connection', (client) => {
 
-            console.log('client connect');
-
             client.on('disconnect', () => {
-
-                console.log('client disconnect');
 
                 if (client.player) {
                     client.room.removePlayer(client.player);
 
-                    console.log(client.room.players);
+                    // Remove room if empty
+                    if (!client.room.players.length) {
+                        Expe.removeRoom(client.room.id);
+                    }
 
                     client.broadcast.to(client.room.id).emit(GET_USERS, {users: client.room.players});
                 }
 
             });
 
-            client.on(ON_NEW_USER, (data) => {
+            client.on(NEW_USER, (data) => {
 
-                console.log('client wants to play');
+                console.log(Expe.rooms);
 
                 client.player = new Player(client.id, data.user.name, data.user.color);
-
-                console.log('new player :', client.player);
-
-                client.room = Expe.checkRoom(data.roomId);
-
+                client.room = Expe.checkRoom(data.room);
                 client.room.addPlayer(client.player);
-
                 client.join(client.room.id);
 
                 client.broadcast.to(client.room.id).emit(NEW_USER, client.player);
-
                 client.emit(GET_USERS,{users: client.room.players});
                 client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
 
-                console.log('player\'s room :', client.room);
+            });
+
+            client.on(GET_USERS, (data) => {
+                client.emit(GET_USERS, {users: client.room.players});
+            });
+
+            client.on(GET_ROOM_NAME, (data) => {
+                let roomInfos = Expe.roomById(data.roomId);
+                if (roomInfos) {
+                    client.emit(GET_ROOM_NAME, {status: true, message: roomInfos.name});
+                } else {
+                    client.emit(GET_ROOM_NAME, {status: false, message: 'This room doesn\'t exist.'});
+                }
+            });
+
+            client.on(CHECK_ROOM_CONNECTION, (data) => {
+
+                let drawer = data.user;
+                let room = data.room;
+                let roomInfos = Expe.roomById(room.id);
+
+                if (!roomInfos) {
+                    client.emit(CHECK_ROOM_CONNECTION, {status: false, message: 'This room doesn\'t exist.'});
+
+                } else {
+                    if (roomInfos.checkPlayer(drawer.name)) {
+                        client.emit(CHECK_ROOM_CONNECTION, {status: false, message: 'Username not available.'});
+                    } else {
+                        client.emit(CHECK_ROOM_CONNECTION, {status: true, message: ''});
+                    }
+                }
 
             });
 
-            client.on(ON_GET_USERS, (data) => {
+            client.on(CHECK_ROOM_CREATE, (data) => {
 
-                client.emit(GET_USERS, {users: client.room.players});
+                let drawer = data.user;
+                let room = data.room;
+                let roomInfos = Expe.roomById(room.id);
+                if (roomInfos) {
+                    client.emit(CHECK_ROOM_CREATE, {status: false, message: 'This room already exists.'});
+
+                } else {
+                    client.emit(CHECK_ROOM_CREATE, {status: true, message: ''});
+
+                }
 
             });
 

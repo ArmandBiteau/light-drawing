@@ -2,9 +2,11 @@
 
 class Room {
 
-	constructor(id) {
+	constructor(id, name) {
 
 		this.id = id;
+
+		this.name = name;
 
 		this.players = [];
 
@@ -16,11 +18,16 @@ class Room {
 
     }
 
+	checkPlayer(name) {
+		for (var i = 0; i < this.players.length; i++) {
+			if (this.players[i].name == name) return true;
+		}
+		return false;
+	}
+
 	removePlayer(player) {
 
 		let playerToDelete = this.players.indexOf(player);
-
-		console.log(playerToDelete);
 
 	    if (playerToDelete !== -1) {
 
