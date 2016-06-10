@@ -86,7 +86,7 @@ export default Vue.extend({
         connect() {
 
             if (this.room.name) {
-                this.room.id = this.room.name.replace(' ', '');
+                this.room.id = this.room.name.replace(/ /g,'');
             }
 
             if (this.me.name && this.room.id && this.me.color) {

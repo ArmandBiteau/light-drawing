@@ -5,6 +5,8 @@ import Stats from 'stats-js';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
+import Screenshot from 'core/Screenshot';
+
 import GroundMixin from './mixins/ground';
 import CursorMixin from './mixins/cursor';
 import SplinesMixin from './mixins/splines';
@@ -38,6 +40,10 @@ export default Vue.extend({
         target: document,
         event: 'mouseup',
         method: 'onMouseUp'
+    },{
+        target: document,
+        event: 'keyup',
+        method: 'onKeyup'
     }],
 
     emitterEvents: [{
@@ -167,7 +173,7 @@ export default Vue.extend({
     		 * Renderer
     		*/
 
-            this._renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
+            this._renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
 
 			this._renderer.setPixelRatio(window.devicePixelRatio);
 
@@ -321,6 +327,26 @@ export default Vue.extend({
             this.isDrawing = false;
 
             this.splinesStop();
+
+        },
+
+        onKeyup(e) {
+
+            if (e.keyCode != 80) return;
+
+            this._cursor.visible = false;
+
+            setTimeout(() => {
+
+                let domEl = this._renderer.domElement;
+
+                Screenshot(domEl, this.room.name, this.me.name).then(() => {
+
+                    this._cursor.visible = true;
+
+                });
+
+            }, 1000/30);
 
         },
 

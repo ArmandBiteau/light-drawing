@@ -3,7 +3,7 @@
 let WAGNER = require('@superguigui/wagner');
 let FXAAPass = require('@superguigui/wagner/src/passes/fxaa/FXAAPass');
 let TiltPass = require('@superguigui/wagner/src/passes/tiltshift/tiltshiftPass');
-let VignettePass = require('@superguigui/wagner/src/passes/vignette/vignettePass');
+// let VignettePass = require('@superguigui/wagner/src/passes/vignette/vignettePass');
 let BloomPass = require('@superguigui/wagner/src/passes/bloom/MultiPassBloomPass');
 
 
@@ -35,10 +35,10 @@ export default {
                 zoomBlurStrength: 0.15
             });
 
-            this._vignettePass = new VignettePass({
-                boost: 1.1,
-                reduction: 1.0
-            });
+            // this._vignettePass = new VignettePass({
+            //     boost: 1.1,
+            //     reduction: 1.0
+            // });
 
             this._tiltPass = new TiltPass({
                 bluramount: 3
@@ -60,7 +60,7 @@ export default {
 
             this._composer.pass(this._bloomPass);
 
-            this._composer.pass(this._vignettePass);
+            // this._composer.pass(this._vignettePass);
 
             if (this.isDrawing) {
 
