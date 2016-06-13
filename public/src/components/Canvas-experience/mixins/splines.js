@@ -12,26 +12,14 @@ export default {
 
         this._splines = [];
         this._splinesCount = 60;
-
         this._distortAmount = 11.0;
-
-        // this._colors = [
-        //     0xF6F6F6, //white
-        //     0x6238FF, //purple
-        //     0x283BEF, //blue
-        //     0x6238FF, //purple
-        //     0x4890FF, //cyan
-        //     0x4890FF, //cyan
-        //     0x6DE49B  //green
-        // ];
-
         this._myColors = this.me.color.gradient;
 
 	},
 
 	methods: {
 
-		splinesInitialize() {
+		splinesInitialize() {              
 
 		},
 

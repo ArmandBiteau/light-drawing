@@ -12,19 +12,33 @@ export default (domEl, roomName, author) => {
         let ctx = canvas.getContext('2d');
 
         let img = new Image();
+        img.src = frameURL;
 
-        img.onload = () => {
-            // put three.js canvas
-            ctx.drawImage(img, 0, 0, img.width,    img.height,      // source rectangle
-                               0, 0, canvas.width, canvas.height);  // destination rectangle
+        let draw = new Promise((resolve) => {
 
-            ctx.fillStyle = "#FFFFFF";
+            // DRAW THE PICTURE
 
-            ctx.font = 'normal normal 300 20px helveticaneue';
-            ctx.fillText(roomName, 100, 100);
+            img.onload = () => {
 
-            ctx.font = 'italic normal 300 15px helveticaneue';
-            ctx.fillText('By '+author, 100, 130);
+                ctx.drawImage(img, 0, 0, img.width,    img.height,      // source rectangle
+                                   0, 0, canvas.width, canvas.height);  // destination rectangle
+
+                ctx.fillStyle = "#FFFFFF";
+
+                ctx.font = 'normal normal 300 20px helveticaneue';
+                ctx.fillText(roomName, 100, 100);
+
+                ctx.font = 'italic normal 300 15px helveticaneue';
+                ctx.fillText('By '+author, 100, 130);
+
+                resolve();
+
+            };
+        });
+
+        draw.then(() => {
+
+            // DOWNLOAD THE PICTURE
 
             let link = document.createElement('a');
             link.setAttribute('download', 'screenshot.png');
@@ -33,8 +47,7 @@ export default (domEl, roomName, author) => {
 
             resolve();
 
-        };
-        img.src = frameURL;
+        });
 
     });
 

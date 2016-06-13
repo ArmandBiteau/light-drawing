@@ -19,6 +19,8 @@ module.exports = function ( object, cursor, domElement ) {
 	this.movementSpeed = 1.0;
 	this.rollSpeed = 0.005;
 
+	this.screen = new THREE.Vector3(-2.0);
+
 	this.dragToLook = false;
 	this.autoForward = false;
 
@@ -152,6 +154,9 @@ module.exports = function ( object, cursor, domElement ) {
 			let halfWidth  = container.size[ 0 ] / 2;
 			let halfHeight = container.size[ 1 ] / 2;
 
+			this.screen.x = (event.clientX / window.innerWidth) * 2 - 1;
+			this.screen.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
 			this.moveState.yawLeft   = - ( ( event.pageX - container.offset[ 0 ] ) - halfWidth  ) / halfWidth;
 			this.moveState.pitchDown =   ( ( event.pageY - container.offset[ 1 ] ) - halfHeight ) / halfHeight;
 
@@ -211,9 +216,11 @@ module.exports = function ( object, cursor, domElement ) {
 		this.object.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 
 		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
-
 		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -3);
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
+
+		// this.cursor.position.set(this.moveState.yawLeft, this.moveState.pitchDown, 3);
+		// this.cursor.position.unproject(this.object);
 
 	};
 
