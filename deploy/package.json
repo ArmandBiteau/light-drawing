@@ -18,7 +18,7 @@
     "npm": "3.8.9"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node NODE_ENV=production index.js"
   },
   "dependencies": {
     "@superguigui/wagner": "^0.1.23",
