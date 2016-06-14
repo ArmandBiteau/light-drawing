@@ -1,15 +1,13 @@
 {
-  "name": "",
+  "name": "light-drawing",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "license": "MIT",
-  "private": true,
+  "description": "3d light painting",
+  "license": "ISC",
   "main": "index.js",
   "author": {
-    "name": "",
-    "url": "",
-    "mail": ""
+    "name": "Armand Biteau",
+    "url": "http://armandbiteau.com",
+    "mail": "hello@armandbiteau.com"
   },
   "repository": {
     "type": "git",
@@ -42,5 +40,6 @@
     "vue": "^1.0.20",
     "vue-router": "^0.7.11",
     "express": "^4.13.4",
-  }
+  },
+  "devDependencies": {}
 }
