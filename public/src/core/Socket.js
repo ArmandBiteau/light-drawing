@@ -8,7 +8,7 @@ class Socket extends io.connect {
 
     constructor() {
 
-        super(URL+':'+PORT);
+        super(URL+PORT);
 
     }
 

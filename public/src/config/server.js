@@ -1,14 +1,14 @@
 'use strict';
 
-const port = process.env.PORT || 5000;
+const localPort = process.env.PORT || 5000;
 
 const ip = (process.env.NODE_ENV != 'development') ? 'light-drawing.herokuapp.com' : 'localhost';
 
 const server = {
 
-  URL: 'http://'+ip,
+  URL: (process.env.NODE_ENV != 'development') ? 'http://light-drawing.herokuapp.com' : 'http://localhost',
 
-  PORT: port
+  PORT: (process.env.NODE_ENV != 'development') ? '' : ':'+localPort
 
 };
 
