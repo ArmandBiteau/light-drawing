@@ -11,12 +11,14 @@ import GroundMixin from './mixins/ground';
 import CursorMixin from './mixins/cursor';
 import SplinesMixin from './mixins/splines';
 
+import OPPSplinesMixin from './mixins/oppSplines';
+
 import ComposerMixin from './mixins/composer';
 
 import DesktopControls from './controls/desktop';
 
 import {
-    WINDOW_RESIZE
+    WINDOW_RESIZE, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE
 } from 'config/messages';
 
 export default Vue.extend({
@@ -26,6 +28,7 @@ export default Vue.extend({
         ComposerMixin,
         CursorMixin,
         SplinesMixin,
+        OPPSplinesMixin,
         DesktopControls,
         GroundMixin
     ],
@@ -51,7 +54,16 @@ export default Vue.extend({
         method: 'onWindowResize'
     }],
 
-    socketEvents: [],
+    socketEvents: [{
+        message: NEW_OPP_SPLINE,
+        method: 'onNewOppSpline'
+    },{
+        message: UPDATE_OPP_SPLINE,
+        method: 'onUpdateOppSpline'
+    },{
+        message: STOP_OPP_SPLINE,
+        method: 'onStopOppSpline'
+    }],
 
     props: {
         users: {
@@ -209,6 +221,8 @@ export default Vue.extend({
 
             this.splinesInitialize();
 
+            this.oppSplinesInitialize();
+
 			this.controlsInitialize();
 
             // this.groundInitialize();
@@ -234,6 +248,8 @@ export default Vue.extend({
             this.cursorUpdate();
 
             this.splinesUpdate(this._clockElapsedTime);
+
+            this.oppSplinesUpdate(this._clockElapsedTime);
 
             this.controlsUpdate(this._clockElapsedTime);
 

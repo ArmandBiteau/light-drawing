@@ -11,7 +11,7 @@ import States from 'core/States';
 import debounce from 'lodash.debounce';
 
 import {
-    WINDOW_RESIZE, NEW_USER, GET_USERS, IS_LOADED, POPUP_MESSAGE, BACK_HOME
+    WINDOW_RESIZE, NEW_USER, GET_USERS, IS_LOADED, POPUP_MESSAGE, BACK_HOME, GET_MY_ID
 } from 'config/messages';
 
 
@@ -48,6 +48,9 @@ export default Vue.extend({
     },{
         message: GET_USERS,
         method: 'onGetUsers'
+    },{
+        message: GET_MY_ID,
+        method: 'onGetMyID'
     }],
 
     data() {
@@ -154,6 +157,12 @@ export default Vue.extend({
             this.isReady = false;
             this.entryPoint = '/';
             this.$router.go(this.entryPoint);
+
+        },
+
+        onGetMyID(data) {
+
+                this.me.id = data.id;
 
         },
 

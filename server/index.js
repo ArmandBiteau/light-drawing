@@ -10,7 +10,7 @@ import Server from './core/Server';
 import Socket from './core/Socket';
 
 import {
-    NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME
+    NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, GET_MY_ID, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE
 } from './config/messages';
 
 import Experience from './models/experience';
@@ -54,7 +54,7 @@ class Manager {
 
             client.on(NEW_USER, (data) => {
 
-                console.log(Expe.rooms);
+                // console.log(Expe.rooms);
 
                 client.player = new Player(client.id, data.user.name, data.user.color);
                 client.room = Expe.checkRoom(data.room);
@@ -62,9 +62,16 @@ class Manager {
                 client.join(client.room.id);
 
                 client.broadcast.to(client.room.id).emit(NEW_USER, client.player);
+
                 client.emit(GET_USERS,{users: client.room.players});
                 client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
 
+                client.emit(GET_MY_ID, {id: client.player.id});
+
+            });
+
+            client.on(GET_MY_ID, (data) => {
+                client.emit(GET_MY_ID, {id: client.player.id});
             });
 
             client.on(GET_USERS, (data) => {
@@ -111,6 +118,24 @@ class Manager {
                     client.emit(CHECK_ROOM_CREATE, {status: true, message: ''});
 
                 }
+
+            });
+
+            client.on(NEW_OPP_SPLINE, (data) => {
+
+                client.broadcast.to(client.room.id).emit(NEW_OPP_SPLINE, data);
+
+            });
+
+            client.on(UPDATE_OPP_SPLINE, (data) => {
+
+                client.broadcast.to(client.room.id).emit(UPDATE_OPP_SPLINE, data);
+
+            });
+
+            client.on(STOP_OPP_SPLINE, (data) => {
+
+                client.broadcast.to(client.room.id).emit(STOP_OPP_SPLINE, data);
 
             });
 

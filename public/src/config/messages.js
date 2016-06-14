@@ -28,6 +28,8 @@ const messages = {
 
    GET_ROOM_NAME: 'GET ROOM NAME',
 
+   GET_MY_ID: 'GET MY ID',
+
    /*
     * EXPERIENCE
     */
@@ -40,7 +42,17 @@ const messages = {
 
    POPUP_MESSAGE: 'POPUP MESSAGE',
 
-   BACK_HOME: 'BACK HOME'
+   BACK_HOME: 'BACK HOME',
+
+   /*
+    * DRAWING
+    */
+
+    NEW_OPP_SPLINE: 'NEW OPP SPLINE',
+
+    UPDATE_OPP_SPLINE: 'UPDATE OPP SPLINE',
+
+    STOP_OPP_SPLINE: 'STOP OPP SPLINE'
 
 };
 
