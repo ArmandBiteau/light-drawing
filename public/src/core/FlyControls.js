@@ -203,7 +203,7 @@ module.exports = function ( object, cursor, domElement ) {
 	this.update = function( delta ) {
 
 		let moveMult = delta * this.movementSpeed;
-		let rotMult = delta * this.rollSpeed;
+		let rotMult = delta * this.rollSpeed / 5;
 
 		this.object.translateX( this.moveVector.x * moveMult );
 		this.object.translateY( this.moveVector.y * moveMult );
@@ -212,15 +212,11 @@ module.exports = function ( object, cursor, domElement ) {
 		this.tmpQuaternion.set( this.rotationVector.x * rotMult, this.rotationVector.y * rotMult, this.rotationVector.z * rotMult, 1 ).normalize();
 		this.object.quaternion.multiply( this.tmpQuaternion );
 
-		// expose the rotation vector for convenience
 		this.object.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 
 		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -3);
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
-
-		// this.cursor.position.set(this.moveState.yawLeft, this.moveState.pitchDown, 3);
-		// this.cursor.position.unproject(this.object);
 
 	};
 

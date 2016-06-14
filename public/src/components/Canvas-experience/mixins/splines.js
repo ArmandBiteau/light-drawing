@@ -44,9 +44,9 @@ export default {
 
                 this._splines.push(new Spline(this._distortAmount, color, this._cursor));
 
-                this._splines[i].position.x = Math.random()/10 + this._splines[i]._lineWidth/this._distortAmount;
+                this._splines[i].position.x = Math.random()/7 + this._splines[i]._lineWidth/this._distortAmount;
                 this._splines[i].position.y = Math.random()/5 + this._splines[i]._lineWidth/this._distortAmount;
-                this._splines[i].position.z = Math.random()/10 + this._splines[i]._lineWidth/this._distortAmount;
+                this._splines[i].position.z = Math.random()/7 + this._splines[i]._lineWidth/this._distortAmount;
 
                 this.currentSpline.add(this._splines[i]);
 

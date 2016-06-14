@@ -3,14 +3,15 @@
     top: 2em;
     right: 2em;
     z-index: 1000;
-    background: $color-white;
-    border-radius: 4px;
 }
 
 .menu-drawers-container {
     width: auto;
     max-width: 250px;
     padding: 2em;
+    border-radius: 4px;
+    background: $color-white;
+    position: relative;
 }
 
 .menu-drawers-title {
@@ -34,4 +35,11 @@
 }
 
 .menu-drawers-color {
+}
+
+.menu-drawers-pkey {
+    position: relative;
+    color: $color-white;
+    margin-top: 1em;
+    font-size: 1.2rem;
 }
