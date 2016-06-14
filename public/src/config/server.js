@@ -2,7 +2,7 @@
 
 const port = process.env.PORT || 5000;
 
-const ip = (process.env.NODE_ENV != 'production') ? 'localhost' : 'light-drawing.herokuapp.com';
+const ip = (process.env.NODE_ENV != 'development') ? 'light-drawing.herokuapp.com' : 'localhost';
 
 const server = {
 
