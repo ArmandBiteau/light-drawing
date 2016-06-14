@@ -8,9 +8,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack/webpack.dev.config.babel.js';
 
-const isDeveloping = process.env.NODE_ENV !== 'production';
-const port = isDeveloping ? 3000 : process.env.PORT;
-const ip = 'localhost';
+const port = process.env.PORT || 3000;
+const ip = process.env.IP || 'localhost';
 
 const app = express();
 const compiler = webpack(config);

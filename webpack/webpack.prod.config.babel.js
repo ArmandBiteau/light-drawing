@@ -11,7 +11,7 @@ export default {
   context: path.resolve(__dirname, '../public'),
   entry: './src/main.js',
   output: {
-    path: path.join(__dirname, '..', 'build-client'),
+    path: path.join(__dirname, '..', 'deploy/public'),
     filename: 'js/[name]-[hash].min.js'
   },
   resolve: {
@@ -32,6 +32,11 @@ export default {
         test: /\.html?$/,
         exclude: /node_modules/,
         loader: 'html'
+      },
+      {
+        test: /\.(glsl|frag|vert)$/,
+        exclude: /node_modules/,
+        loaders: ['raw', 'glslify']
       },
       {
         test: /\.js$/,

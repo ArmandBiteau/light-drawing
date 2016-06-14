@@ -2,12 +2,17 @@
 
 import path from 'path';
 
-const isDeveloping = process.env.NODE_ENV !== 'production';
-const port = isDeveloping ? 5000 : process.env.PORT;
-const ip = 'localhost';
+const port = process.env.PORT || 5000;
+const ip = process.env.IP || 'localhost';
 
-import Server from './core/Server';
-import Socket from './core/Socket';
+// import Server from './core/Server';
+// import Socket from './core/Socket';
+
+import express from 'express';
+
+var app = express();
+var Server = require('http').Server(app);
+var Socket = require('socket.io')(Server);
 
 import {
     NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, GET_MY_ID, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE
@@ -26,6 +31,12 @@ class Manager {
     constructor() {
 
         Server.listen(port);
+
+        app.use(express.static(__dirname + '/public'));
+
+        app.get('*', function (req, res) {
+            res.sendFile(__dirname + '/public/index.html');
+        });
 
         this.setEventHandlers();
 

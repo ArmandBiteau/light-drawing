@@ -20,7 +20,8 @@
     "start-client": "NODE_ENV=development babel-node public/index.js",
     "start-server": "NODE_ENV=development babel-watch server/index.js",
     "build-client": "NODE_ENV=production webpack --config webpack/webpack.prod.config.babel.js --progress --profile --colors",
-    "build-server": "NODE_ENV=production babel server --out-dir build-server",
+    "build-server": "NODE_ENV=production babel server --out-dir deploy",
+    "build": "npm run build-server && npm run build-client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
