@@ -22,6 +22,7 @@
     "build-client": "NODE_ENV=production webpack --config webpack/webpack.prod.config.babel.js --progress --profile --colors",
     "build-server": "NODE_ENV=production babel server --out-dir deploy",
     "build": "npm run build-server && npm run build-client",
+    "deploy": "git subtree push --prefix deploy heroku master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
