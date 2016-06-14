@@ -54,11 +54,11 @@ class Manager {
 
             client.on(NEW_USER, (data) => {
 
-                // console.log(Expe.rooms);
-
                 client.player = new Player(client.id, data.user.name, data.user.color);
+
                 client.room = Expe.checkRoom(data.room);
                 client.room.addPlayer(client.player);
+
                 client.join(client.room.id);
 
                 client.broadcast.to(client.room.id).emit(NEW_USER, client.player);
@@ -71,20 +71,27 @@ class Manager {
             });
 
             client.on(GET_MY_ID, (data) => {
+
                 client.emit(GET_MY_ID, {id: client.player.id});
+
             });
 
             client.on(GET_USERS, (data) => {
+
                 client.emit(GET_USERS, {users: client.room.players});
+
             });
 
             client.on(GET_ROOM_NAME, (data) => {
+
                 let roomInfos = Expe.roomById(data.roomId);
+
                 if (roomInfos) {
                     client.emit(GET_ROOM_NAME, {status: true, message: roomInfos.name});
                 } else {
                     client.emit(GET_ROOM_NAME, {status: false, message: 'This room doesn\'t exist.'});
                 }
+
             });
 
             client.on(CHECK_ROOM_CONNECTION, (data) => {
@@ -102,6 +109,7 @@ class Manager {
                     } else {
                         client.emit(CHECK_ROOM_CONNECTION, {status: true, message: ''});
                     }
+
                 }
 
             });
@@ -111,6 +119,7 @@ class Manager {
                 let drawer = data.user;
                 let room = data.room;
                 let roomInfos = Expe.roomById(room.id);
+
                 if (roomInfos) {
                     client.emit(CHECK_ROOM_CREATE, {status: false, message: 'This room already exists.'});
 

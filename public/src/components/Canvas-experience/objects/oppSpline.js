@@ -48,7 +48,9 @@ class OppSpline extends THREE.Object3D {
     stop() {
 
         for (let i = 0; i < this._lines.length; i++) {
+
             this._lines[i].stop();
+
         }
 
     }

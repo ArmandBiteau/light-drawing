@@ -18,8 +18,6 @@ export default {
 
         oppSplinesDraw(data) {
 
-            // {name:str, user:obj, color:obj}
-
             this._oppSplines.push(new OppSpline(data));
 
             this._scene.add(this._oppSplines[this._oppSplines.length-1]);
@@ -27,12 +25,6 @@ export default {
 		},
 
         oppSplinesUpdate() {
-
-            // for (let i = 0; i < this._oppSplines.length; i++) {
-            //
-            //     this._oppSplines[i].update();
-            //
-            // }
 
 		},
 
@@ -54,7 +46,6 @@ export default {
 
         onUpdateOppSpline(data) {
 
-            // name, point
             let currentSpline = this.getSplineById(data.name);
             currentSpline.update(data.point);
 
