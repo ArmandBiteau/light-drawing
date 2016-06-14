@@ -11,6 +11,10 @@
     "url": "",
     "mail": ""
   },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/light-drawing.git"
+  },
   "engines": {
     "node": "6.2.0",
     "npm": "3.8.9"
