@@ -11,9 +11,9 @@ uniform vec3 iColor1;
 
 void main() {
 
-    float r = iColor1.r + snoise2(vPosition.xy)/8.0;
-    float g = iColor1.g + snoise2(vPosition.xz)/5.0;
-    float b = iColor1.b + snoise2(vPosition.yz)/10.0;
+    float r = iColor1.r + snoise2(vPosition.xy)/16.0;
+    float g = iColor1.g + snoise2(vPosition.xz)/10.0;
+    float b = iColor1.b + snoise2(vPosition.yz)/20.0;
 
     // float a = sin(iTimeDelta/10.0);
     float a = 1.0;
