@@ -12,6 +12,15 @@
 
 	</div>
 
+	<div class="menu-drawers-color">
+
+		<label class="intro-label" for="color">Change your color</label>
+		<select class="intro-input" name="color" v-model="me.color" required>
+			<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
+		</select>
+
+	</div>
+
 	<h2 class="menu-drawers-pkey">Press "P" to download your drawing</h2>
 
 </div>

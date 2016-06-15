@@ -15,7 +15,7 @@ var Server = require('http').Server(app);
 var Socket = require('socket.io')(Server);
 
 import {
-    NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, GET_MY_ID, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE
+    NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, GET_MY_ID, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE, UPDATE_PLAYER
 } from './config/messages';
 
 import Experience from './models/experience';
@@ -84,6 +84,14 @@ class Manager {
             client.on(GET_MY_ID, (data) => {
 
                 client.emit(GET_MY_ID, {id: client.player.id});
+
+            });
+
+            client.on(UPDATE_PLAYER, (data) => {
+
+                client.room.updatePlayer(data.user);
+
+                client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
 
             });
 

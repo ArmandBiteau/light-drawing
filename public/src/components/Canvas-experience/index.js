@@ -36,11 +36,11 @@ export default Vue.extend({
     template: require('./template.html'),
 
     domEvents: [{
-        target: document,
+        target: document.getElementsByTagName('canvas')[0],
         event: 'mousedown',
         method: 'onMouseDown'
     },{
-        target: document,
+        target: document.getElementsByTagName('canvas')[0],
         event: 'mouseup',
         method: 'onMouseUp'
     },{
@@ -225,7 +225,7 @@ export default Vue.extend({
 
 			this.controlsInitialize();
 
-            this.groundInitialize();
+            // this.groundInitialize();
 
             this.composerInitialize();
 
@@ -253,7 +253,7 @@ export default Vue.extend({
 
             this.controlsUpdate(this._clockElapsedTime);
 
-            this.groundUpdate();
+            // this.groundUpdate();
 
         },
 

@@ -48,8 +48,6 @@ module.exports = function ( object, cursor, domElement ) {
 
 	this.resize = function() {
 
-		console.log('resize');
-
 		this._ratioWidth = (window.innerWidth/2 * 1.9) / 500;
 		this._ratioHeight = (window.innerHeight/2 * 1.9) / 500;
 
@@ -232,9 +230,7 @@ module.exports = function ( object, cursor, domElement ) {
 		this.cursor.position.set( - this.moveState.yawLeft * this._ratioWidth, -this.moveState.pitchDown * this._ratioHeight, -2.5);
 
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
-
 		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
-
 
 	};
 

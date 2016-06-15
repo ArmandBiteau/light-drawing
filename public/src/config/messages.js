@@ -30,6 +30,8 @@ const messages = {
 
    GET_MY_ID: 'GET MY ID',
 
+   UPDATE_PLAYER: 'UPDATE PLAYER',
+
    /*
     * EXPERIENCE
     */

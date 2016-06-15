@@ -2,47 +2,74 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
+import {
+    UPDATE_PLAYER
+} from 'config/messages';
+
+import Colors from 'core/DrawingDatas';
+
 export default Vue.extend({
 
-  mixins: [EventManagerMixin],
+    mixins: [EventManagerMixin],
 
-  template: require('./template.html'),
+    template: require('./template.html'),
 
-  emitterEvents: [],
+    emitterEvents: [],
 
-  domEvents: [],
+    domEvents: [],
 
-  props: {
-      users: {
-          type: Array,
-          default: []
-      },
-      me: {
-          type: Object,
-          default: {}
-      }
-  },
+    props: {
+        users: {
+            type: Array,
+            default: []
+        },
+        me: {
+            type: Object,
+            default: {}
+        }
+    },
 
-  data() {
+    data() {
 
-    return {
-      _hidden: null
-    };
-  },
+        return {
+            _hidden: null,
+            colors: []
+        };
+    },
 
-  ready() {
+    watch: {
 
-  },
+        'me.color': function () {
 
-  beforeDestroy() {},
+            console.log(this.me);
 
-  methods: {
+            this.socketEmitter.emit(UPDATE_PLAYER, {user: this.me});
 
-  },
+        }
 
-  transitions: {
+    },
 
-  },
+    ready() {
 
-  components: {}
+        this.getColors();
+
+    },
+
+    beforeDestroy() {},
+
+    methods: {
+
+        getColors() {
+
+            this.colors = Colors;
+
+        }
+
+    },
+
+    transitions: {
+
+    },
+
+    components: {}
 });
