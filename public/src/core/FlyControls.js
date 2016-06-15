@@ -16,17 +16,11 @@ module.exports = function ( object, cursor, domElement ) {
 
 	this.movementSpeed = 1.0;
 	this.rollSpeed = 0.005;
-
 	this.dragToLook = false;
 	this.autoForward = false;
 
-	// 1000px -> 4.5
-	this._ratioWidth = (window.innerWidth/2 * 1.9) / 500;
-	this._ratioHeight = (window.innerHeight/2 * 1.9) / 500;
-
-	// disable default target object behavior
-
-	// internals
+	this._ratioWidth = (window.innerWidth/2 * 1.8) / 500;
+	this._ratioHeight = (window.innerHeight/2 * 1.8) / 500;
 
 	this.tmpQuaternion = new THREE.Quaternion();
 
@@ -48,8 +42,8 @@ module.exports = function ( object, cursor, domElement ) {
 
 	this.resize = function() {
 
-		this._ratioWidth = (window.innerWidth/2 * 1.9) / 500;
-		this._ratioHeight = (window.innerHeight/2 * 1.9) / 500;
+		this._ratioWidth = (window.innerWidth/2 * 1.8) / 500;
+		this._ratioHeight = (window.innerHeight/2 * 1.8) / 500;
 
 	};
 

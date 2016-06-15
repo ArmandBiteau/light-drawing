@@ -26,12 +26,27 @@ var Room = function () {
 			this.players.push(player);
 		}
 	}, {
+		key: 'getPlayerByName',
+		value: function getPlayerByName(name) {
+			for (var i = 0; i < this.players.length; i++) {
+				if (this.players[i].name == name) return this.players[i];
+			}
+			return false;
+		}
+	}, {
 		key: 'checkPlayer',
 		value: function checkPlayer(name) {
 			for (var i = 0; i < this.players.length; i++) {
 				if (this.players[i].name == name) return true;
 			}
 			return false;
+		}
+	}, {
+		key: 'updatePlayer',
+		value: function updatePlayer(user) {
+
+			var player = this.getPlayerByName(user.name);
+			player.color = user.color;
 		}
 	}, {
 		key: 'removePlayer',

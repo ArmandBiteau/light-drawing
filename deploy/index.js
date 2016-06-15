@@ -101,6 +101,13 @@ var Manager = function () {
                     client.emit(_messages.GET_MY_ID, { id: client.player.id });
                 });
 
+                client.on(_messages.UPDATE_PLAYER, function (data) {
+
+                    client.room.updatePlayer(data.user);
+
+                    client.broadcast.to(client.room.id).emit(_messages.GET_USERS, { users: client.room.players });
+                });
+
                 client.on(_messages.GET_USERS, function (data) {
 
                     client.emit(_messages.GET_USERS, { users: client.room.players });
