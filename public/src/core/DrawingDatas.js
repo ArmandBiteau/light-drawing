@@ -13,6 +13,7 @@ module.exports = [
         0x283BEF,
         0x6238FF,
         0x4890FF,
+        0xF6F6F6,
         0x4890FF,
         0x6DE49B
     ]),
@@ -23,6 +24,7 @@ module.exports = [
         0x4890FF,
         0x4FFF1C,
         0x6DE49B,
+        0xF6F6F6,
         0x3F7F2D,
         0x6DE49B
     ]),
@@ -31,6 +33,7 @@ module.exports = [
         0xCC8B18,
         0xF6F6F6,
         0xFFAE1E,
+        0xF6F6F6,
         0xCCB700,
         0xFFF711,
         0xFFC610
@@ -49,6 +52,7 @@ module.exports = [
         0x4B277F,
         0xF0E5FF,
         0x964EFF,
+        0xF6F6F6,
         0x5D467F,
         0xF783ECC,
         0xF6F6F6
