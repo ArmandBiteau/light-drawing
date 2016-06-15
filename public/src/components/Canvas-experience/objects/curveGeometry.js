@@ -7,6 +7,8 @@ class CurveGeometry extends THREE.Geometry {
 
     constructor(array, count) {
 
+        // console.log(count);
+
         super();
 
         this.points = array;
@@ -14,18 +16,26 @@ class CurveGeometry extends THREE.Geometry {
         this._reduceAmount = 6;
 
         let points = this.get3DPoints(this.points);
+
+        // console.log(points);
+
         let reduced = this.reducePoints(points, this._reduceAmount);
+
+        // console.log(reduced);
+
         let curve = new THREE.CatmullRomCurve3(reduced);
         this.vertices = curve.getPoints(count/this._reduceAmount*5);
 
     }
 
     reducePoints(points, n) {
+
         let reducedPoints = [];
         for (let i = 0; i < points.length; i+=n) {
             reducedPoints.push(points[i]);
         }
         return reducedPoints;
+
     }
 
     get3DPoints(array) {

@@ -3,6 +3,7 @@
     top: 2em;
     right: 2em;
     z-index: 1000;
+    user-select: none!important;
 }
 
 .menu-drawers-container {
@@ -12,6 +13,7 @@
     border-radius: 4px;
     background: $color-white;
     position: relative;
+    user-select: none!important;
 }
 
 .menu-drawers-title {

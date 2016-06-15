@@ -133,12 +133,12 @@ module.exports = function ( object, cursor, domElement ) {
 
 		} else {
 
-			switch ( event.button ) {
-
-				case 0: this.moveState.forward = 1; break;
-				case 2: this.moveState.back = 1; break;
-
-			}
+			// switch ( event.button ) {
+			//
+			// 	case 0: this.moveState.forward = 1; break;
+			// 	case 2: this.moveState.back = 1; break;
+			//
+			// }
 
 			this.updateMovementVector();
 
@@ -179,12 +179,12 @@ module.exports = function ( object, cursor, domElement ) {
 
 		} else {
 
-			switch ( event.button ) {
-
-				case 0: this.moveState.forward = 0; break;
-				case 2: this.moveState.back = 0; break;
-
-			}
+			// switch ( event.button ) {
+			//
+			// 	case 0: this.moveState.forward = 0; break;
+			// 	case 2: this.moveState.back = 0; break;
+			//
+			// }
 
 			this.updateMovementVector();
 
@@ -214,9 +214,22 @@ module.exports = function ( object, cursor, domElement ) {
 
 		this.object.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
 
-		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
-		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -3);
+
+		// console.log(-this.moveState.yawLeft);
+		// console.log(-this.moveState.pitchDown);
+		//
+		// let mouse = new THREE.Vector3( -this.moveState.yawLeft, -this.moveState.pitchDown, -1 );
+		// mouse.project(this.object);
+		//
+		// this.cursor.position.set(mouse.x, mouse.y, mouse.z);
+
+
+		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -2.5);
+
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
+
+		this.cursor.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
+
 
 	};
 

@@ -16,7 +16,8 @@ export default {
         this.currentSpline = null;
 
         this._splinesCount = 60;
-        this._distortAmount = 11.0;
+
+        this._distortAmount = 5.0;
         this._myColors = this.me.color.gradient;
 
         this._splines = [];
@@ -44,9 +45,9 @@ export default {
 
                 this._splines.push(new Spline(this._distortAmount, color, this._cursor));
 
-                this._splines[i].position.x = Math.random()/7 + this._splines[i]._lineWidth/this._distortAmount;
-                this._splines[i].position.y = Math.random()/5 + this._splines[i]._lineWidth/this._distortAmount;
-                this._splines[i].position.z = Math.random()/7 + this._splines[i]._lineWidth/this._distortAmount;
+                this._splines[i].position.x = Math.random()*this._distortAmount/40;
+                this._splines[i].position.y = Math.random()*this._distortAmount/20;
+                this._splines[i].position.z = Math.random()*this._distortAmount/10;
 
                 this.currentSpline.add(this._splines[i]);
 
@@ -65,7 +66,9 @@ export default {
             this.socketEmitter.emit(STOP_OPP_SPLINE, {name:this.currentSpline.name});
 
             for (let i = 0; i < this._splinesCount; i++) {
-                this._splines[i].stop();
+
+                if (this._splines[i]) this._splines[i].stop();
+
             }
 
             this._splines = [];
@@ -91,7 +94,7 @@ export default {
 
                 for (let i = 0; i < this._splinesCount; i++) {
 
-                    this._splines[i].update();
+                    if (this._splines[i]) this._splines[i].update();
 
                 }
 

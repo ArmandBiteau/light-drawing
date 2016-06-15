@@ -7,11 +7,11 @@ uniform float iDistortAmount;
 
 void main() {
 
-    vec3 vec3noise = position + ( cnoise3(position) * (iDistortAmount/30.0));
+    float xNoise = cnoise3(position) * (iDistortAmount/25.0);
+    float yNoise = cnoise3(position) * (iDistortAmount/20.0);
+    float zNoise = cnoise3(position) * (iDistortAmount/25.0);
 
-    float noise = cnoise3(position) * (2.0*iDistortAmount/30.0);
-
-    vPosition = vec3(position.x - noise, vec3noise.y, position.z + noise);
+    vPosition = vec3(position.x + xNoise, position.y + yNoise, position.z);
 
     gl_Position = projectionMatrix *
                 modelViewMatrix *

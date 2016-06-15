@@ -78,7 +78,9 @@ class Spline extends THREE.Line {
 
     stop() {
 
-        this.geometry = new CurveGeometry(this.geometry.attributes.position.array, this._centerCount);
+        if (this._centerCount > 24) {
+            this.geometry = new CurveGeometry(this.geometry.attributes.position.array, this._centerCount);
+        }
 
     }
 
