@@ -9,8 +9,6 @@ module.exports = function ( object, cursor, domElement ) {
 	this.object = object;
 	this.cursor = cursor;
 
-	// this.object.add(this.cursor);
-
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 	if ( domElement ) this.domElement.setAttribute( 'tabindex', - 1 );
 
@@ -19,10 +17,12 @@ module.exports = function ( object, cursor, domElement ) {
 	this.movementSpeed = 1.0;
 	this.rollSpeed = 0.005;
 
-	this.screen = new THREE.Vector3(-2.0);
-
 	this.dragToLook = false;
 	this.autoForward = false;
+
+	// 1000px -> 4.5
+	this._ratioWidth = (window.innerWidth/2 * 1.9) / 500;
+	this._ratioHeight = (window.innerHeight/2 * 1.9) / 500;
 
 	// disable default target object behavior
 
@@ -43,6 +43,15 @@ module.exports = function ( object, cursor, domElement ) {
 			this[ event.type ]( event );
 
 		}
+
+	};
+
+	this.resize = function() {
+
+		console.log('resize');
+
+		this._ratioWidth = (window.innerWidth/2 * 1.9) / 500;
+		this._ratioHeight = (window.innerHeight/2 * 1.9) / 500;
 
 	};
 
@@ -154,9 +163,6 @@ module.exports = function ( object, cursor, domElement ) {
 			let halfWidth  = container.size[ 0 ] / 2;
 			let halfHeight = container.size[ 1 ] / 2;
 
-			this.screen.x = (event.clientX / window.innerWidth) * 2 - 1;
-			this.screen.y = - (event.clientY / window.innerHeight) * 2 + 1;
-
 			this.moveState.yawLeft   = - ( ( event.pageX - container.offset[ 0 ] ) - halfWidth  ) / halfWidth;
 			this.moveState.pitchDown =   ( ( event.pageY - container.offset[ 1 ] ) - halfHeight ) / halfHeight;
 
@@ -223,8 +229,7 @@ module.exports = function ( object, cursor, domElement ) {
 		//
 		// this.cursor.position.set(mouse.x, mouse.y, mouse.z);
 
-
-		this.cursor.position.set(-this.moveState.yawLeft*2, -this.moveState.pitchDown*2, -2.5);
+		this.cursor.position.set( - this.moveState.yawLeft * this._ratioWidth, -this.moveState.pitchDown * this._ratioHeight, -2.5);
 
 		this.cursor.position.applyQuaternion( this.object.quaternion ).add( this.object.position );
 
@@ -300,6 +305,7 @@ module.exports = function ( object, cursor, domElement ) {
 
 		window.removeEventListener( 'keydown', _keydown, false );
 		window.removeEventListener( 'keyup', _keyup, false );
+		window.removeEventListener( 'resize', _resize, false );
 
 	};
 
@@ -308,6 +314,8 @@ module.exports = function ( object, cursor, domElement ) {
 	// let _mouseup = bind( this, this.mouseup );
 	let _keydown = bind( this, this.keydown );
 	let _keyup = bind( this, this.keyup );
+	let _resize = bind( this, this.resize );
+
 
 	this.domElement.addEventListener( 'contextmenu', contextmenu, false );
 
@@ -317,6 +325,7 @@ module.exports = function ( object, cursor, domElement ) {
 
 	window.addEventListener( 'keydown', _keydown, false );
 	window.addEventListener( 'keyup',   _keyup, false );
+	window.addEventListener( 'resize', _resize, false );
 
 	this.updateMovementVector();
 	this.updateRotationVector();
