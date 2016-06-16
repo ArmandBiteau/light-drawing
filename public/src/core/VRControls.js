@@ -133,7 +133,7 @@ export default function ( object, onError ) {
 
 				} else {
 
-					object.position.set( 0, 0, 0 );
+					// object.position.set( 0, 0, 0 );
 
 				}
 
@@ -154,7 +154,7 @@ export default function ( object, onError ) {
 
 				} else {
 
-					object.position.set( 0, 0, 0 );
+					// object.position.set( 0, 0, 0 );
 
 				}
 
@@ -180,6 +180,7 @@ export default function ( object, onError ) {
 			object.position.multiplyScalar( scope.scale );
 
 			object.translateZ(velocity);
+			console.log(object.position);
 
 		}
 
