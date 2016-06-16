@@ -39,7 +39,8 @@ export default Vue.extend({
             _hidden: null,
             colors: [],
             colorHexa: '',
-            iColor: 0
+            iColor: 0,
+            showHtmlMenu: true
         };
     },
 
@@ -58,6 +59,8 @@ export default Vue.extend({
     },
 
     ready() {
+
+        if (window.mobile) this.showHtmlMenu = false;
 
         this.getColors();
 
