@@ -111,9 +111,9 @@ export default function ( object, onError ) {
 
 	this.update = function (delta) {
 
-		velocity += (-velocity) * 0.08 * delta;
+		velocity += (-velocity) * 0.4 * delta;
 
-		if (moveForward) velocity -= 0.0025 * delta;
+		if (moveForward) velocity -= 0.02 * delta;
 
 		if ( vrInput ) {
 
@@ -180,7 +180,6 @@ export default function ( object, onError ) {
 			object.position.multiplyScalar( scope.scale );
 
 			object.translateZ(velocity);
-			console.log(object.position);
 
 		}
 
