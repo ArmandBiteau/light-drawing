@@ -44,7 +44,7 @@ export default {
 
             if (this._controls.moveForward) {
 
-                this._velocity = 0.02;
+                this._velocity = 0.1;
                 this._camera.translateZ(this._velocity);
 
             }
