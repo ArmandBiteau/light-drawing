@@ -113,7 +113,7 @@ export default function ( object, onError ) {
 
 		velocity = 0;
 
-		if (moveForward) velocity -= 0.2 * delta;
+		if (moveForward) velocity -= 1.0 * delta;
 
 		if ( vrInput ) {
 
