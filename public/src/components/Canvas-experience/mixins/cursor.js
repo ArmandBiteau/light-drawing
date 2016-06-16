@@ -39,7 +39,12 @@ export default {
 
             this._cursor.add(this._wireCursor);
 
-            if (window.mobile) this._cursor.position.z = 100;    
+            if (window.mobile) {
+
+                this._cursor.position.z = -3;
+                this._camera.add(this._camera);
+
+            }
 
 		},
 

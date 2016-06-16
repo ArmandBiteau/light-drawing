@@ -12,6 +12,7 @@ export default {
 
 		this._controls = null;
         this._vreffect = null;
+        this._velocity = 0;
 
 	},
 
@@ -23,8 +24,11 @@ export default {
 
 		controlsInitialize() {
 
+
             this._controls = new VRControls(this._camera);
             this._vreffect = new VREffect(this._renderer);
+
+            this._controls.moveForward = false;
 
             this._vreffect.setSize(window.innerWidth, window.innerHeight);
 
@@ -37,6 +41,13 @@ export default {
 		controlsUpdate(delta) {
 
             this._controls.update(delta);
+
+            if (this._controls.moveForward) {
+
+                this._velocity = 0.02;
+                this._camera.translateZ(this._velocity);
+
+            }
 
         }
 

@@ -54,6 +54,14 @@ export default Vue.extend({
         event: 'mouseup',
         method: 'onMouseUp'
     },{
+        target: document.getElementsByTagName('canvas')[0],
+        event: 'touchstart',
+        method: 'onTouchStart'
+    },{
+        target: document.getElementsByTagName('canvas')[0],
+        event: 'touchend',
+        method: 'onTouchEnd'
+    },{
         target: document,
         event: 'keyup',
         method: 'onKeyup'
@@ -360,6 +368,27 @@ export default Vue.extend({
             this.isDrawing = false;
 
             this.splinesStop();
+
+        },
+
+		onTouchStart() {
+
+            this.isDrawing = true;
+
+            this.splinesDraw();
+
+			this._controls.moveForward = true;
+
+        },
+
+        onTouchEnd() {
+
+            this.isDrawing = false;
+
+            this.splinesStop();
+
+			this._controls.moveForward = false;
+
 
         },
 
