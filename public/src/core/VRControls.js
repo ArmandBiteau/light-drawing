@@ -13,8 +13,8 @@ export default function ( object, onError ) {
 
 	let vrInput;
 
-	let moveForward = false;
-	let velocity = 0;
+	var moveForward = false;
+	var velocity = 0;
 
 	let standingMatrix = new THREE.Matrix4();
 
@@ -111,9 +111,9 @@ export default function ( object, onError ) {
 
 	this.update = function (delta) {
 
-		velocity += (-velocity.z) * 0.08 * delta;
+		velocity += (-velocity) * 0.08 * delta;
 
-		if (moveForward) velocity.z -= 0.0025 * delta;
+		if (moveForward) velocity -= 0.0025 * delta;
 
 		if ( vrInput ) {
 
