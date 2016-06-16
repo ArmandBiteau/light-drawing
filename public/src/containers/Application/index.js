@@ -2,6 +2,10 @@
 
 'use strict';
 
+let Device = require('device-detect')();
+
+import WEBVR from 'core/Webvr';
+
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import PopupMessage from 'components/Message-popup';
@@ -85,6 +89,12 @@ export default Vue.extend({
     },
 
     ready() {
+
+        window.mobile = (Device.device == 'iPhone' || Device.device == 'iPad' || Device.device == 'Blackberry' || Device.device == 'WindowsMobile' || Device.device == 'Android') ? true : false;
+
+        if (window.mobile && WEBVR.isLatestAvailable() === false) {
+			document.body.appendChild(WEBVR.getMessage());
+		}
 
         this.entryPoint = this.$route.path;
 

@@ -5,17 +5,24 @@ import Stats from 'stats-js';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
-import Screenshot from 'core/Screenshot';
-
 import GroundMixin from './mixins/ground';
 import CursorMixin from './mixins/cursor';
 import SplinesMixin from './mixins/splines';
-
 import OPPSplinesMixin from './mixins/oppSplines';
 
 import ComposerMixin from './mixins/composer';
+import Screenshot from 'core/Screenshot';
 
 import DesktopControls from './controls/desktop';
+import MobileControls from './controls/mobile';
+
+let ControlsMixin;
+
+if (window.mobile) {
+	ControlsMixin =  MobileControls;
+} else {
+	ControlsMixin =  DesktopControls;
+}
 
 import {
     WINDOW_RESIZE, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE, UPDATE_COLOR
@@ -29,7 +36,7 @@ export default Vue.extend({
         CursorMixin,
         SplinesMixin,
         OPPSplinesMixin,
-        DesktopControls,
+        ControlsMixin,
         GroundMixin
     ],
 
@@ -266,7 +273,11 @@ export default Vue.extend({
 
             this._renderer.autoClearColor = true;
 
-            this.composerRender();
+            if (window.mobile) {
+                this._vreffect.render(this._scene, this._camera);
+            } else {
+                this.composerRender();
+            }
 
             // this._renderer.render(this._scene, this._camera);
 
