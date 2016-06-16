@@ -3,6 +3,8 @@
 import THREE from 'three';
 import Stats from 'stats-js';
 
+let Device = require('device-detect')();
+
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import GroundMixin from './mixins/ground';
@@ -18,10 +20,11 @@ import MobileControls from './controls/mobile';
 
 let ControlsMixin;
 
-if (window.mobile) {
-	ControlsMixin =  MobileControls;
+let mobile = (Device.device == 'iPhone' || Device.device == 'iPad' || Device.device == 'Blackberry' || Device.device == 'WindowsMobile' || Device.device == 'Android') ? true : false;
+if (mobile) {
+	ControlsMixin = MobileControls;
 } else {
-	ControlsMixin =  DesktopControls;
+	ControlsMixin = DesktopControls;
 }
 
 import {

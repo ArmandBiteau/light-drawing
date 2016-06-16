@@ -12,6 +12,8 @@ export default {
 
 		this._controls = null;
 
+        this._vreffect = null;
+
 	},
 
     ready() {
@@ -24,6 +26,8 @@ export default {
 
             this._controls = new VRControls(this._camera);
             this._vreffect = new VREffect(this._renderer);
+
+            console.error(this._vreffect);
 
             this._vreffect.setSize(window.innerWidth, window.innerHeight);
 
