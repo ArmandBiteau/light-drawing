@@ -24,7 +24,6 @@ export default {
 
 		controlsInitialize() {
 
-
             this._controls = new VRControls(this._camera);
             this._vreffect = new VREffect(this._renderer);
 
