@@ -13,6 +13,9 @@ export default function ( object, onError ) {
 
 	let vrInput;
 
+	let moveForward = false;
+	let velocity = 0;
+
 	let standingMatrix = new THREE.Matrix4();
 
 	function gotVRDevices( devices ) {
@@ -47,6 +50,45 @@ export default function ( object, onError ) {
 
 	}
 
+
+	function onDocumentTouchEnd(event) {
+
+		event.preventDefault();
+
+		moveForward = false;
+
+	}
+
+	function onDocumentTouchStart(event) {
+
+		if (event.touches.length === 1) {
+
+			event.preventDefault();
+
+			moveForward = true;
+
+			document.querySelector('canvas').addEventListener('touchend', onDocumentTouchEnd, false);
+
+		}
+
+	}
+
+	function onDocumentTouchMove(event) {
+
+		if (event.touches.length === 1) {
+
+			event.preventDefault();
+
+			moveForward = true;
+
+		}
+
+	}
+
+	document.querySelector('canvas').addEventListener('touchstart', onDocumentTouchStart, false);
+	document.querySelector('canvas').addEventListener('touchend', onDocumentTouchEnd, false);
+	document.querySelector('canvas').addEventListener('touchmove', onDocumentTouchMove, false);
+
 	// the Rift SDK returns the position in meters
 	// this scale factor allows the user to define how meters
 	// are converted to scene units.
@@ -67,7 +109,11 @@ export default function ( object, onError ) {
 
 	};
 
-	this.update = function () {
+	this.update = function (delta) {
+
+		velocity += (-velocity.z) * 0.08 * delta;
+
+		if (moveForward) velocity.z -= 0.0025 * delta;
 
 		if ( vrInput ) {
 
@@ -132,6 +178,8 @@ export default function ( object, onError ) {
 			}
 
 			object.position.multiplyScalar( scope.scale );
+
+			object.translateZ(velocity);
 
 		}
 

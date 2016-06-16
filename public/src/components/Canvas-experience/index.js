@@ -377,8 +377,6 @@ export default Vue.extend({
 
             this.splinesDraw();
 
-			this._controls.moveForward = true;
-
         },
 
         onTouchEnd() {
@@ -386,9 +384,6 @@ export default Vue.extend({
             this.isDrawing = false;
 
             this.splinesStop();
-
-			this._controls.moveForward = false;
-
 
         },
 

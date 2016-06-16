@@ -42,13 +42,6 @@ export default {
 
             this._controls.update(delta);
 
-            if (this._controls.moveForward) {
-
-                this._velocity = 0.1;
-                this._camera.translateZ(this._velocity);
-
-            }
-
         }
 
 	}
