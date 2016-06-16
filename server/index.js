@@ -32,10 +32,18 @@ class Manager {
 
         Server.listen(port);
 
-        app.use(express.static(__dirname + '/public'));
+        app.use(express.static(path.join( __dirname, '/public')));
+
+        app.get('/:id/connect', function (req, res) {
+
+            let id = req.params.id;
+
+            res.redirect('/'+id);
+
+        });
 
         app.get('*', function (req, res) {
-            res.sendFile(__dirname + '/public/index.html');
+            res.sendFile(path.join( __dirname, '/public/index.html'));
         });
 
         this.setEventHandlers();
