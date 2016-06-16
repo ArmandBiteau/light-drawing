@@ -111,7 +111,7 @@ export default function ( object, onError ) {
 
 	this.update = function (delta) {
 
-		velocity += (-velocity) * 0.4 * delta;
+		velocity = 0;
 
 		if (moveForward) velocity -= 0.02 * delta;
 
