@@ -92,6 +92,8 @@ export default Vue.extend({
 
         window.mobile = (Device.device == 'iPhone' || Device.device == 'iPad' || Device.device == 'Blackberry' || Device.device == 'WindowsMobile' || Device.device == 'Android') ? true : false;
 
+        if (window.mobile) require('core/Webvr-polyfill');
+
         if (window.mobile && WEBVR.isLatestAvailable() === false) {
 			document.body.appendChild(WEBVR.getMessage());
 		}
