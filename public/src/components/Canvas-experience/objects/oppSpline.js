@@ -13,7 +13,7 @@ class OppSpline extends THREE.Object3D {
 
         super();
 
-        this._splinesCount = 60;
+        this._splinesCount = window.mobile ? 12 : 60;
         this._distortAmount = 5.0;
         this._lines = [];
 

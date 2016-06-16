@@ -39,6 +39,8 @@ export default {
 
             this._cursor.add(this._wireCursor);
 
+            if (window.mobile) this._cursor.position.z = 100;    
+
 		},
 
 		cursorUpdate() {

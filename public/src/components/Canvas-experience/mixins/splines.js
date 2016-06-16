@@ -15,7 +15,7 @@ export default {
         this.isDrawing = false;
         this.currentSpline = null;
 
-        this._splinesCount = 60;
+        this._splinesCount = window.mobile ? 12 : 60;
 
         this._distortAmount = 5.0;
 
@@ -51,7 +51,7 @@ export default {
                     y: Math.random()*this._distortAmount/30 * sign,
                     z: Math.random()*this._distortAmount/20
                 };
-                
+
                 this._splines.push(new Spline(transform, this._distortAmount, color, this._cursor));
 
                 // this._splines[i].position.x = Math.random()*this._distortAmount/40 * sign/2;
