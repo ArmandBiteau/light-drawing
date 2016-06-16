@@ -41,8 +41,8 @@ export default {
 
             if (window.mobile) {
 
-                this._cursor.position.z = -3;
-                this._camera.add(this._camera);
+                this._cursor.position.z = -2;
+                this._camera.add(this._cursor);
 
             }
 
