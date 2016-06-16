@@ -48,10 +48,17 @@ var Manager = function () {
 
         Server.listen(port);
 
-        app.use(_express2.default.static(__dirname + '/public'));
+        app.use(_express2.default.static(_path2.default.join(__dirname, '/public')));
+
+        app.get('/:id/connect', function (req, res) {
+
+            var id = req.params.id;
+
+            res.redirect('/' + id);
+        });
 
         app.get('*', function (req, res) {
-            res.sendFile(__dirname + '/public/index.html');
+            res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
         });
 
         this.setEventHandlers();
