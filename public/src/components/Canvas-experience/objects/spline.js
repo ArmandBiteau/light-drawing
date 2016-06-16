@@ -42,8 +42,8 @@ class Spline extends THREE.Line {
                     value: 0
                 }
             },
-            vertexShader: require('shaders/vertex/spline2-vs.glsl'),
-            fragmentShader: require('shaders/fragment/spline2-fs.glsl'),
+            vertexShader: require('shaders/vertex/spline-vs.glsl'),
+            fragmentShader: require('shaders/fragment/spline-fs.glsl'),
             linewidth: LINE_WIDTH,
             transparent : true
         });

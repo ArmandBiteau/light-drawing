@@ -42,8 +42,8 @@ class OppLine extends THREE.Line {
                     value: 0
                 }
             },
-            vertexShader: require('shaders/vertex/spline2-vs.glsl'),
-            fragmentShader: require('shaders/fragment/spline2-fs.glsl'),
+            vertexShader: require('shaders/vertex/opp-spline-vs.glsl'),
+            fragmentShader: require('shaders/fragment/opp-spline-fs.glsl'),
             linewidth: LINE_WIDTH,
             transparent : true
         });
@@ -55,11 +55,11 @@ class OppLine extends THREE.Line {
         this._reduceAmount = REDUCE_AMOUNT;
 
         this._centerCount = 0;
-        this._pointCount = 0;
+        // this._pointCount = 0;
         this._frame = 0.0;
 
         this.geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 3));
-        this.geometry.addAttribute('timeCreation', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 1));
+        // this.geometry.addAttribute('timeCreation', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 1));
 
         this.geometry.setDrawRange(0, 2);
 
@@ -71,13 +71,13 @@ class OppLine extends THREE.Line {
 
         this.material.uniforms.iTimeDelta.value = this._frame;
 
-        this.geometry.attributes.timeCreation.array[this._pointCount++] = this._frame;
+        // this.geometry.attributes.timeCreation.array[this._pointCount++] = this._frame;
 
         this.geometry.attributes.position.array[this._centerCount++] = point.x;
         this.geometry.attributes.position.array[this._centerCount++] = point.y;
         this.geometry.attributes.position.array[this._centerCount++] = point.z;
 
-        this.geometry.attributes.timeCreation.needsUpdate = true;
+        // this.geometry.attributes.timeCreation.needsUpdate = true;
         this.geometry.attributes.position.needsUpdate = true;
 
         if (this._centerCount >=3) this.geometry.setDrawRange(0, this._centerCount/3);
