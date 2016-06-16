@@ -18,7 +18,7 @@ import ComposerMixin from './mixins/composer';
 import DesktopControls from './controls/desktop';
 
 import {
-    WINDOW_RESIZE, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE
+    WINDOW_RESIZE, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE, UPDATE_COLOR
 } from 'config/messages';
 
 export default Vue.extend({
@@ -52,6 +52,9 @@ export default Vue.extend({
     emitterEvents: [{
         message: WINDOW_RESIZE,
         method: 'onWindowResize'
+    },{
+        message: UPDATE_COLOR,
+        method: 'onUpdateColor'
     }],
 
     socketEvents: [{
@@ -373,6 +376,12 @@ export default Vue.extend({
 			this._camera.updateProjectionMatrix();
 
 			this._renderer.setSize(width, height);
+
+        },
+
+        onUpdateColor(data) {
+
+            this.cursorUpdateColor(data.color);
 
         }
 

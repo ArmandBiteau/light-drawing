@@ -8,21 +8,21 @@ class Color {
 
 module.exports = [
     new Color('blue', [
-        0xF6F6F6,
+        0x4890FF,
         0x6238FF,
+        0xF6F6F6,
         0x283BEF,
         0x6238FF,
-        0x4890FF,
         0xF6F6F6,
         0x4890FF,
         0x6DE49B
     ]),
     new Color('green', [
-        0xF6F6F6,
-        0x4890FF,
         0x6DE49B,
         0x4890FF,
         0x4FFF1C,
+        0x4890FF,
+        0xF6F6F6,
         0x6DE49B,
         0xF6F6F6,
         0x3F7F2D,

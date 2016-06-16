@@ -1,6 +1,6 @@
 .menu-drawers-wrapper {
     position: fixed;
-    top: 2em;
+    top: 3em;
     right: 2em;
     z-index: 1000;
     user-select: none!important;
@@ -14,6 +14,7 @@
     background: $color-white;
     position: relative;
     user-select: none!important;
+    margin-bottom: 2em;
 }
 
 .menu-drawers-title {
@@ -36,12 +37,27 @@
     font-weight: bold;
 }
 
-.menu-drawers-color {
-}
-
 .menu-drawers-pkey {
     position: relative;
     color: $color-white;
     margin-top: 1em;
     font-size: 1.2rem;
+    text-align: left;
+    span {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+.menu-drawers-color {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1em;
+}
+
+.menu-drawers-color-preview {
+    width: 100%;
+    height: 100%;
 }

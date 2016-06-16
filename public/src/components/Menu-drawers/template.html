@@ -14,13 +14,15 @@
 
 	<div class="menu-drawers-color">
 
-		<label class="intro-label" for="color">Change your color</label>
+		<!-- <label class="intro-label" for="color">Change your color</label>
 		<select class="intro-input" name="color" v-model="me.color" required>
 			<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
-		</select>
+		</select> -->
+		<div class="menu-drawers-color-preview" v-bind:style="{ backgroundColor: colorHexa }"></div>
 
 	</div>
 
-	<h2 class="menu-drawers-pkey">Press "P" to download your drawing</h2>
+	<h2 class="menu-drawers-pkey">Press <span>Spacebar</span> to switch color</h2>
+	<h2 class="menu-drawers-pkey">Press <span>P</span> to download your drawing</h2>
 
 </div>
