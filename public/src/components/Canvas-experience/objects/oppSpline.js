@@ -23,11 +23,14 @@ class OppSpline extends THREE.Object3D {
 
             let splineColor = data.color.gradient[Math.floor( Math.random() * (data.color.gradient.length-1) )];
 
-            this._lines.push(new OppLine(this._distortAmount, splineColor));
+            let sign = Math.sign(i - this._splinesCount/2);
+            let transform = {
+                x: Math.random()*this._distortAmount/40 * sign/2,
+                y: Math.random()*this._distortAmount/30 * sign,
+                z: Math.random()*this._distortAmount/20
+            };
 
-            this._lines[i].position.x = Math.random()*this._distortAmount/40;
-            this._lines[i].position.y = Math.random()*this._distortAmount/20;
-            this._lines[i].position.z = Math.random()*this._distortAmount/10;
+            this._lines.push(new OppLine(transform, this._distortAmount, splineColor));
 
             this.add(this._lines[i]);
 

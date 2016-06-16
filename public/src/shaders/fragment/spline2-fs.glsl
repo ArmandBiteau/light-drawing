@@ -1,13 +1,14 @@
 #pragma glslify: snoise2 = require(glsl-noise/simplex/2d)
-#pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
+// #pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
 
-varying vec3 vPosition;
-
-uniform vec3 Resolution;  // viewport resolution (in pixels)
-uniform float iTimeDelta; // render time (in seconds)
+uniform vec3 Resolution;
 uniform float iThickness;
 
 uniform vec3 iColor1;
+
+varying vec3 vPosition;
+
+varying float vInterval;
 
 void main() {
 
@@ -15,8 +16,8 @@ void main() {
     float g = iColor1.g + snoise2(vPosition.xz)/10.0;
     float b = iColor1.b + snoise2(vPosition.yz)/20.0;
 
-    // float a = sin(iTimeDelta/10.0);
-    float a = 1.0;
+    float a = min(1.0, pow(vInterval/15.0, 2.0));
+    // float a = 1.0;
 
     gl_FragColor = vec4(r,
                         g,
