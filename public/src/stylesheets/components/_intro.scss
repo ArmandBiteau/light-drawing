@@ -1,31 +1,32 @@
 .intro-wrapper {
-    // text-align: center;
+    background: $color-black;
+    color: $color-white;
+    @include fullAbsolute;
 }
 
 .intro-container {
     @include centerXY;
     width: auto;
-    max-width: 250px;
 }
 
 .intro-title {
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: $color-green;
+    color: $color-white;
+    text-transform: uppercase;
     margin-bottom: 2em;
 }
 
-.intro-name {
+.intro-form-element{
     margin-top: 2em;
-}
-
-.intro-username {
-    margin-top: 2em;
-}
-
-.intro-color {
-    margin-top: 2em;
+    &::after {
+        position: absolute;
+        content: "";
+        width: 6em;
+        height: 3px;
+        margin-top: -4px;
+        margin-left: 0;
+        background: $color-white;
+    }
 }
 
 .intro-label {
@@ -34,23 +35,60 @@
     font-size: 1.2rem;
 }
 .intro-input {
-    font-weight: bold;
+    background: none;
+    border: none;
+    border-bottom: 1px solid $color-white;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-appearance: none;
     width: 100%;
+    font-weight: bold;
     margin-top: 0.75em;
     padding: 0.5em;
-    color:rgba($color-black, 0.7);
+    padding-bottom: 1em;
+    color:rgba($color-white, 0.85);
+}
+
+.intro-form-cross {
+    position: relative;
+    float: right;
+    &::before {
+        content: "";
+        position: absolute;
+        background: $color-white;
+        right: 8px;
+        bottom: 15px;
+        margin-right: 5px;
+        width: 8px;
+        height: 1px;
+        transform: rotate(45deg);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        background: $color-white;
+        right: 8px;
+        bottom: 15px;
+        margin-right: 0;
+        width: 8px;
+        height: 1px;
+        transform: rotate(-45deg);
+    }
 }
 
 .intro-link {
     text-align: center;
     display: block;
-    margin-top: 2em;
+    margin-top: 3em;
     font-size: 1.2rem;
     font-weight: bold;
-    background: $color-green;
-    color: #fff;
+    border: 1px solid $color-white;
+    color: $color-white;
     cursor: pointer;
     padding: 1em;
     border-radius: 4px;
     width: 100%;
+    &:hover {
+        border-color: rgba($color-white, 0.7);
+    }
 }

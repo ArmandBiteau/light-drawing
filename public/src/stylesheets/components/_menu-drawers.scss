@@ -20,7 +20,7 @@
 .menu-drawers-title {
     font-size: 1.8rem;
     font-weight: bold;
-    color: $color-green;
+    color: $color-black;
     margin-bottom: 1em;
 }
 
@@ -31,7 +31,8 @@
 }
 
 .menu-drawers-names-element {
-    margin-bottom: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
     color: $color-black;
     font-size: 1.2rem;
     font-weight: bold;

@@ -29,7 +29,7 @@ export default Vue.extend({
 
           this.localEmitter.emit(IS_LOADED, {});
 
-      }, 1000);
+      }, 100);
 
   },
 

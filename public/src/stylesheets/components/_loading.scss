@@ -1,12 +1,14 @@
 .loading-wrapper {
     @include fullAbsolute();
+    background: $color-black;
+    z-index: 1000;
 }
 
 .loading-container {
     @include centerXY;
 
     h2 {
-        color: $color-green;
+        color: $color-white;
         font-size: 2em;
     }
 }

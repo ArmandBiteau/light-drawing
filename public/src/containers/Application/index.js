@@ -69,7 +69,7 @@ export default Vue.extend({
             users: [],
             me: {
                 id: '',
-                name: 'Armand Biteau',
+                name: '',
                 color: {
                     name: '',
                     gradient: []
