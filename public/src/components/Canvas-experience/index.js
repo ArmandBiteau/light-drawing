@@ -145,7 +145,7 @@ export default Vue.extend({
 
         this.stop();
 
-        this.destroyStats();
+		if (process.env.NODE_ENV === 'development') this.destroyStats();
 
     },
 
@@ -280,7 +280,7 @@ export default Vue.extend({
 
         render() {
 
-            this._stats.begin();
+			if (process.env.NODE_ENV === 'development') this._stats.begin();
 
             this._renderer.autoClearColor = true;
 
@@ -292,7 +292,7 @@ export default Vue.extend({
 
             // this._renderer.render(this._scene, this._camera);
 
-            this._stats.end();
+			if (process.env.NODE_ENV === 'development') this._stats.end();
 
         },
 
@@ -304,7 +304,7 @@ export default Vue.extend({
 
 			if (!this._raf) {
 
-                this.initStats();
+				if (process.env.NODE_ENV === 'development') this.initStats();
 
 				this._raf = window.requestAnimationFrame(this.run);
 
