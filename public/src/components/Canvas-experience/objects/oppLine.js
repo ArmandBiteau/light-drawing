@@ -61,6 +61,8 @@ class OppLine extends THREE.Line {
         this.geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 3));
         // this.geometry.addAttribute('timeCreation', new THREE.BufferAttribute(new Float32Array(this._maxPoints), 1));
 
+        this.material.index0AttributeName = 'position';
+
         this.geometry.setDrawRange(0, 2);
 
     }
