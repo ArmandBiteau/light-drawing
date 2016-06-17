@@ -72,14 +72,18 @@ export default Vue.extend({
 
         onLoadProgress: function(event) {
 
-            TweenMax.to(this.$els.progressBar, 1.0, {
+            TweenMax.to(this.$els.progressBar, 0.3, {
                 width: event.progress + '%'
             });
 
        },
 
        onLoadComplete: function() {
-           this.localEmitter.emit(IS_LOADED, {});
+
+           setTimeout(() => {
+               this.localEmitter.emit(IS_LOADED, {});
+           }, 300);
+
        },
 
        onLoadError: function() {
