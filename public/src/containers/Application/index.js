@@ -104,15 +104,10 @@ export default Vue.extend({
         // JOIN ROOM
         if (!this.isReady && this.entryPoint != '/') {
 
-            console.log('join existing room');
-
             this.room.id = this.$route.params ? this.$route.params.roomId : '';
 
             this.$router.go({ name: 'connect', params: {roomId: this.room.id}});
 
-        // BLANK CONNECTION
-        } else {
-            console.log('new');
         }
 
         this.addDeviceClass();

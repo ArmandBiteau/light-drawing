@@ -2,13 +2,31 @@
     @include fullAbsolute();
     background: $color-black;
     z-index: 1000;
+    width: 100%;
 }
 
 .loading-container {
     @include centerXY;
-
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
     h2 {
         color: $color-white;
         font-size: 2em;
     }
+}
+
+.loading-bar {
+    margin-top: 2em;
+    // position: relative;
+    width: 100%;
+    height: 3px;
+    // background: $color-white;
+    border-bottom: 1px solid $color-white;
+}
+
+.loading-bar-progress {
+    width: 0%;
+    height: 100%;
+    background: $color-white;
 }
