@@ -1,4 +1,12 @@
 .loading-wrapper {
-    margin-top: 2em;
-    display: block;
+    @include fullAbsolute();
+}
+
+.loading-container {
+    @include centerXY;
+
+    h2 {
+        color: $color-green;
+        font-size: 2em;
+    }
 }

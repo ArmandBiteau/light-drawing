@@ -36,6 +36,8 @@ const messages = {
     * EXPERIENCE
     */
 
+   IS_READY: 'IS READY',
+
    IS_LOADED: 'IS LOADED',
 
    /*

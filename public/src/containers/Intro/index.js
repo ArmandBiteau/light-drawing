@@ -3,7 +3,7 @@
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import {
-    IS_LOADED, POPUP_MESSAGE, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, BACK_HOME
+    IS_READY, IS_LOADED, POPUP_MESSAGE, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, BACK_HOME
 } from 'config/messages';
 
 import LoadingComponent from 'components/Loading';
@@ -16,7 +16,10 @@ export default Vue.extend({
 
     template: require('./template.html'),
 
-    emitterEvents: [],
+    emitterEvents: [{
+        message: IS_LOADED,
+        method: 'onLoaded'
+    }],
 
     socketEvents: [{
         message: CHECK_ROOM_CONNECTION,
@@ -56,7 +59,8 @@ export default Vue.extend({
 
         return {
             _hidden: null,
-            colors: []
+            colors: [],
+            isLoaded: false
         };
     },
 
@@ -75,6 +79,10 @@ export default Vue.extend({
     },
 
     methods: {
+
+        onLoaded() {
+            this.isLoaded = true;
+        },
 
         getDrawingParameters() {
 
@@ -115,7 +123,7 @@ export default Vue.extend({
         onRoomChecked(data) {
 
             if (data.status == true) {
-                this.localEmitter.emit(IS_LOADED, {
+                this.localEmitter.emit(IS_READY, {
                     me: this.me,
                     room: this.room,
                     status: true

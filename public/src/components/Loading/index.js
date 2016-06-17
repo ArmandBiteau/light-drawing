@@ -2,6 +2,10 @@
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
+import {
+    IS_LOADED
+} from 'config/messages';
+
 export default Vue.extend({
 
   mixins: [EventManagerMixin],
@@ -20,6 +24,12 @@ export default Vue.extend({
   },
 
   ready() {
+
+      setTimeout(() => {
+
+          this.localEmitter.emit(IS_LOADED, {});
+
+      }, 1000);
 
   },
 

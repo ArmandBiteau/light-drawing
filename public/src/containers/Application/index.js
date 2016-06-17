@@ -15,9 +15,8 @@ import States from 'core/States';
 import debounce from 'lodash.debounce';
 
 import {
-    WINDOW_RESIZE, NEW_USER, GET_USERS, IS_LOADED, POPUP_MESSAGE, BACK_HOME, GET_MY_ID
+    WINDOW_RESIZE, NEW_USER, GET_USERS, IS_READY, IS_LOADED, POPUP_MESSAGE, BACK_HOME, GET_MY_ID
 } from 'config/messages';
-
 
 export default Vue.extend({
 
@@ -32,6 +31,9 @@ export default Vue.extend({
     emitterEvents: [{
         message: IS_LOADED,
         method: 'onLoaded'
+    },{
+        message: IS_READY,
+        method: 'onReady'
     },{
         message: POPUP_MESSAGE,
         method: 'onPopupMessage'
@@ -79,7 +81,8 @@ export default Vue.extend({
             },
             roomId: '',
             entryPoint: '',
-            isReady: false
+            isReady: false,
+            isLoaded: false
         };
 
     },
@@ -91,21 +94,25 @@ export default Vue.extend({
     ready() {
 
         window.mobile = (Device.device == 'iPhone' || Device.device == 'iPad' || Device.device == 'Blackberry' || Device.device == 'WindowsMobile' || Device.device == 'Android') ? true : false;
-
         if (window.mobile) require('core/Webvr-polyfill');
-
         if (window.mobile && WEBVR.isLatestAvailable() === false) {
 			document.body.appendChild(WEBVR.getMessage());
 		}
 
         this.entryPoint = this.$route.path;
 
+        // JOIN ROOM
         if (!this.isReady && this.entryPoint != '/') {
+
+            console.log('join existing room');
 
             this.room.id = this.$route.params ? this.$route.params.roomId : '';
 
             this.$router.go({ name: 'connect', params: {roomId: this.room.id}});
 
+        // BLANK CONNECTION
+        } else {
+            console.log('new');
         }
 
         this.addDeviceClass();
@@ -153,7 +160,11 @@ export default Vue.extend({
             });
         },
 
-        onLoaded(data) {
+        onLoaded() {
+            this.isLoaded = true;
+        },
+
+        onReady(data) {
 
             this.me = data.me;
             this.room.id = data.room.id;
