@@ -45,7 +45,10 @@ export default Vue.extend({
         createManifest() {
 
             this.manifest = [
-                '/images/textures/iChannel.png'
+                '/images/textures/iChannel.png',
+                '/images/screenshot.png',
+                '/images/screenshot2.png',
+                '/images/screenshot3.png'
             ];
 
         },
@@ -68,6 +71,7 @@ export default Vue.extend({
 
         onLoadProgress: function(event) {
             this.progress = event.progress;
+            console.log(event.progress);
        },
 
        onLoadComplete: function() {
