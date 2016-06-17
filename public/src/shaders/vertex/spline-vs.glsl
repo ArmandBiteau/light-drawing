@@ -23,11 +23,11 @@ void main() {
     float yNoise = cnoise3(position) * (iDistortAmount/20.0);
     float zNoise = cnoise3(position) * (iDistortAmount/50.0);
 
-    viTransform.x = (viTransform.x) * min(1.0, 0.1+(vInterval)/10.0);
-    viTransform.y = (viTransform.y) * min(1.0, 0.1+(vInterval)/10.0);
-    viTransform.z = (viTransform.z) * min(1.0, 0.1+(vInterval)/10.0);
+    viTransform.x = (viTransform.x + xNoise) * min(1.0, 0.2+(vInterval)/10.0);
+    viTransform.y = (viTransform.y + yNoise) * min(1.0, 0.2+(vInterval)/10.0);
+    viTransform.z = (viTransform.z + zNoise) * min(1.0, 0.2+(vInterval)/10.0);
 
-    vPosition = vec3(position.x + viTransform.x + xNoise, position.y + viTransform.y + yNoise, position.z + viTransform.z + zNoise);
+    vPosition = vec3(position.x + viTransform.x, position.y + viTransform.y, position.z + viTransform.z);
 
     gl_Position = projectionMatrix *
                 modelViewMatrix *
