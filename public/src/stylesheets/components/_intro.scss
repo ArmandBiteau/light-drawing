@@ -6,7 +6,9 @@
 
 .intro-container {
     @include centerXY;
-    width: auto;
+    padding: 1em;
+    width: 100%;
+    max-width: 300px;
 }
 
 .intro-title {
@@ -14,6 +16,7 @@
     color: $color-white;
     text-transform: uppercase;
     margin-bottom: 2em;
+    line-height: 1.2;
 }
 
 .intro-form-element{
