@@ -4,6 +4,8 @@ import EventManagerMixin from 'mixins/EventManagerMixin';
 
 import Loader from 'resource-loader';
 
+import TweenMax from 'gsap';
+
 import {
     IS_LOADED
 } from 'config/messages';
@@ -23,8 +25,7 @@ export default Vue.extend({
         return {
             _hidden: null,
             loader: null,
-            manifest: [],
-            progress: 0
+            manifest: []
         };
     },
 
@@ -63,15 +64,18 @@ export default Vue.extend({
             this.manifest.forEach(function(file) {
                 loader.add(file, file);
             });
-
             loader.load();
+
             this.loader = loader;
 
         },
 
         onLoadProgress: function(event) {
-            this.progress = event.progress;
-            console.log(event.progress);
+
+            TweenMax.to(this.$els.progressBar, 1.0, {
+                width: event.progress + '%'
+            });
+
        },
 
        onLoadComplete: function() {
