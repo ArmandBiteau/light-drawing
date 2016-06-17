@@ -2,37 +2,41 @@
 
 <div v-if="isLoaded" class="intro-wrapper">
 
-	<div class="intro-container">
+	<div class="intro-container" id="introContainer">
 
-		<h1 class="intro-title" v-if="entryPoint != '/'">Join {{room.name}}</h1>
-		<h1 class="intro-title" v-if="entryPoint == '/'">Create a new drawing</h1>
+		<div class="intro-form">
 
-		<div class="intro-form-element intro-name" v-if="entryPoint == '/'">
+			<h1 class="intro-title" v-if="entryPoint != '/'">Join {{room.name}}</h1>
+			<h1 class="intro-title" v-if="entryPoint == '/'">Create a new drawing</h1>
 
-			<label class="intro-label" for="room">Give your drawing a name</label>
-			<input class="intro-input" type="text" name="room" v-model="room.name" value="{{room.name}}" required>
+			<div class="intro-form-element intro-name" v-if="entryPoint == '/'">
+
+				<label class="intro-label" for="room">Give your drawing a name</label>
+				<input class="intro-input" type="text" name="room" v-model="room.name" value="{{room.name}}" required>
+
+			</div>
+
+			<div class="intro-form-element intro-username">
+
+				<label class="intro-label" for="name">Choose a username</label>
+				<input class="intro-input" type="text" name="name" v-model="me.name" value="{{me.name}}" required>
+
+			</div>
+
+			<div class="intro-form-element intro-color">
+
+				<label class="intro-label" for="color">Select your color</label>
+				<select class="intro-input" name="color" v-model="me.color" required>
+					<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
+				</select>
+
+				<span class="intro-form-cross"></span>
+
+			</div>
+
+			<button type="submit" class="intro-link" v-on:click="connect">Start drawing</button>
 
 		</div>
-
-		<div class="intro-form-element intro-username">
-
-			<label class="intro-label" for="name">Choose a username</label>
-			<input class="intro-input" type="text" name="name" v-model="me.name" value="{{me.name}}" required>
-
-		</div>
-
-		<div class="intro-form-element intro-color">
-
-			<label class="intro-label" for="color">Select your color</label>
-			<select class="intro-input" name="color" v-model="me.color" required>
-				<option v-for="color in colors" v-bind:value="color" >{{color.name}}</option>
-			</select>
-
-			<span class="intro-form-cross"></span>
-
-		</div>
-
-		<button type="submit" class="intro-link" v-on:click="connect">Start drawing</button>
 
 	</div>
 

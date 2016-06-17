@@ -1,10 +1,16 @@
 .intro-wrapper {
-    background: $color-black;
-    color: $color-white;
     @include fullAbsolute;
+    color: $color-white;
+    // background: url('/images/bkg.png') center center no-repeat;
+    // background-size: cover;
 }
 
 .intro-container {
+    @include fullAbsolute;
+    background: rgba($color-black, 1);
+}
+
+.intro-form {
     @include centerXY;
     padding: 1em;
     width: 100%;
