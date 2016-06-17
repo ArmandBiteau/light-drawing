@@ -88,19 +88,7 @@ var Manager = function () {
 
                 client.on(_messages.NEW_USER, function (data) {
 
-                    client.player = new _player2.default(client.id, data.user.name, data.user.color);
-
-                    client.room = Expe.checkRoom(data.room);
-                    client.room.addPlayer(client.player);
-
-                    client.join(client.room.id);
-
-                    client.broadcast.to(client.room.id).emit(_messages.NEW_USER, client.player);
-
-                    client.emit(_messages.GET_USERS, { users: client.room.players });
-                    client.broadcast.to(client.room.id).emit(_messages.GET_USERS, { users: client.room.players });
-
-                    client.emit(_messages.GET_MY_ID, { id: client.player.id });
+                    Expe.newPlayer(client, data);
                 });
 
                 client.on(_messages.GET_MY_ID, function (data) {
@@ -123,7 +111,6 @@ var Manager = function () {
                 client.on(_messages.GET_ROOM_NAME, function (data) {
 
                     var roomInfos = Expe.roomById(data.roomId);
-
                     if (roomInfos) {
                         client.emit(_messages.GET_ROOM_NAME, { status: true, message: roomInfos.name });
                     } else {

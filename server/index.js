@@ -73,19 +73,7 @@ class Manager {
 
             client.on(NEW_USER, (data) => {
 
-                client.player = new Player(client.id, data.user.name, data.user.color);
-
-                client.room = Expe.checkRoom(data.room);
-                client.room.addPlayer(client.player);
-
-                client.join(client.room.id);
-
-                client.broadcast.to(client.room.id).emit(NEW_USER, client.player);
-
-                client.emit(GET_USERS,{users: client.room.players});
-                client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
-
-                client.emit(GET_MY_ID, {id: client.player.id});
+                Expe.newPlayer(client, data);
 
             });
 
@@ -112,7 +100,6 @@ class Manager {
             client.on(GET_ROOM_NAME, (data) => {
 
                 let roomInfos = Expe.roomById(data.roomId);
-
                 if (roomInfos) {
                     client.emit(GET_ROOM_NAME, {status: true, message: roomInfos.name});
                 } else {

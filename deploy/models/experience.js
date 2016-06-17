@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+				value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -10,61 +10,85 @@ var _room = require('./room');
 
 var _room2 = _interopRequireDefault(_room);
 
+var _player = require('./player');
+
+var _player2 = _interopRequireDefault(_player);
+
+var _messages = require('../config/messages');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Experience = function () {
-    function Experience() {
-        _classCallCheck(this, Experience);
+				function Experience() {
+								_classCallCheck(this, Experience);
 
-        this.rooms = [];
-    }
+								this.rooms = [];
+				}
 
-    _createClass(Experience, [{
-        key: 'newRoom',
-        value: function newRoom(room) {
+				_createClass(Experience, [{
+								key: 'newPlayer',
+								value: function newPlayer(socket, data) {
 
-            var newRoom = new _room2.default(room.id, room.name);
-            this.rooms.push(newRoom);
-            return newRoom;
-        }
-    }, {
-        key: 'removeRoom',
-        value: function removeRoom(room) {
+												socket.player = new _player2.default(socket.id, data.user.name, data.user.color);
 
-            var roomToDelete = this.rooms.indexOf(room);
+												socket.room = this.checkRoom(data.room);
+												socket.room.addPlayer(socket.player);
 
-            if (roomToDelete !== -1) {
+												socket.join(socket.room.id);
 
-                this.rooms.splice(roomToDelete, 1);
-            }
-        }
-    }, {
-        key: 'roomById',
-        value: function roomById(id) {
+												socket.broadcast.to(socket.room.id).emit(_messages.NEW_USER, socket.player);
 
-            for (var i = 0; i < this.rooms.length; i++) {
+												socket.emit(_messages.GET_USERS, { users: socket.room.players });
+												socket.broadcast.to(socket.room.id).emit(_messages.GET_USERS, { users: socket.room.players });
 
-                if (this.rooms[i].id == id) return this.rooms[i];
-            }
+												socket.emit(_messages.GET_MY_ID, { id: socket.player.id });
+								}
+				}, {
+								key: 'newRoom',
+								value: function newRoom(room) {
 
-            return false;
-        }
-    }, {
-        key: 'checkRoom',
-        value: function checkRoom(room) {
+												var newRoom = new _room2.default(room.id, room.name);
+												this.rooms.push(newRoom);
+												return newRoom;
+								}
+				}, {
+								key: 'removeRoom',
+								value: function removeRoom(room) {
 
-            for (var i = 0; i < this.rooms.length; i++) {
+												var roomToDelete = this.rooms.indexOf(room);
 
-                if (this.rooms[i].id == room.id) return this.rooms[i];
-            }
+												if (roomToDelete !== -1) {
 
-            return this.newRoom(room);
-        }
-    }]);
+																this.rooms.splice(roomToDelete, 1);
+												}
+								}
+				}, {
+								key: 'roomById',
+								value: function roomById(id) {
 
-    return Experience;
+												for (var i = 0; i < this.rooms.length; i++) {
+
+																if (this.rooms[i].id == id) return this.rooms[i];
+												}
+
+												return false;
+								}
+				}, {
+								key: 'checkRoom',
+								value: function checkRoom(room) {
+
+												for (var i = 0; i < this.rooms.length; i++) {
+
+																if (this.rooms[i].id == room.id) return this.rooms[i];
+												}
+
+												return this.newRoom(room);
+								}
+				}]);
+
+				return Experience;
 }();
 
 exports.default = Experience;
