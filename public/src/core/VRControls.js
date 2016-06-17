@@ -7,7 +7,9 @@
 
 import THREE from 'three';
 
-export default function ( object, onError ) {
+export default function ( object, cursor, onError ) {
+
+	var dist = new THREE.Vector3( 0, 0, -2 );
 
 	let scope = this;
 
@@ -178,8 +180,10 @@ export default function ( object, onError ) {
 			}
 
 			object.position.multiplyScalar( scope.scale );
-
 			object.translateZ(velocity);
+
+			dist.applyQuaternion( object.quaternion );
+			cursor.position.copy( dist );
 
 		}
 

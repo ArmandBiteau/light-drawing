@@ -29,8 +29,6 @@ export default {
             });
             this._cursor = new THREE.Mesh(cursorGeometry, cursorMaterial);
 
-			this._scene.add(this._cursor);
-
             let cursorWireGeometry = new THREE.SphereGeometry(this._cursorSize);
             let cursorWireMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffffff
@@ -39,19 +37,11 @@ export default {
 
             this._cursor.add(this._wireCursor);
 
-            if (window.mobile) {
-
-                this._cursor.visible = false;
-
-            }
+            this._scene.add(this._cursor);
 
 		},
 
 		cursorUpdate() {
-
-            if (window.mobile) {
-                this._cursor.position.copy(this._camera.position);
-            }
 
 		},
 
