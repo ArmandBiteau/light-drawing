@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 import Emitter from 'core/Emitter';
 
-import IntroPageComponent from 'containers/Intro';
+import GatePageComponent from 'containers/Gate';
 
 import ExperiencePageComponent from 'containers/Experience';
 
@@ -33,15 +33,15 @@ class Router extends VueRouter {
 
             '/:roomId/connect': {
                 name: "connect",
-                component: IntroPageComponent
+                component: GatePageComponent
             },
             '/:roomId': {
                 name: "experience",
                 component: ExperiencePageComponent
             },
             '*': {
-                name: "intro",
-                component: IntroPageComponent
+                name: "gate",
+                component: GatePageComponent
             }
 
         });
