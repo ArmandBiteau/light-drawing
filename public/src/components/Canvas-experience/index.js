@@ -3,8 +3,6 @@
 import THREE from 'three';
 import Stats from 'stats-js';
 
-// let Device = require('device-detect')();
-
 import States from 'core/States';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
@@ -201,8 +199,6 @@ export default Vue.extend({
 
             this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.001, 100);
 
-            // this._camera.position.set(0, 3, 0);
-
             /*
     		 * Renderer
     		*/
@@ -222,6 +218,8 @@ export default Vue.extend({
             /*
     		 * Composer
     		*/
+
+			this.composerInitialize();
 
             this.sceneLoad();
 
@@ -248,8 +246,6 @@ export default Vue.extend({
 			this.controlsInitialize();
 
             // this.groundInitialize();
-
-            this.composerInitialize();
 
 		},
 
