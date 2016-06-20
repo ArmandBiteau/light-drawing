@@ -89,15 +89,21 @@ export default Vue.extend({
 
         },
 
+        switchColor() {
+
+            this.iColor = (this.iColor < this.colors.length-1) ? (this.iColor+1) : 0;
+
+            this.me.color = this.colors[this.iColor];
+            this.colorHexa = '#' + this.me.color.gradient[0].toString(16);
+
+        },
+
         onKeyup(e) {
 
             // spacebar
             if (e.keyCode != 32) return;
 
-            this.me.color = this.colors[this.iColor];
-            this.colorHexa = '#' + this.me.color.gradient[0].toString(16);
-
-            this.iColor = (this.iColor < this.colors.length-1) ? (this.iColor+1) : 0;
+            this.switchColor();
 
         }
 

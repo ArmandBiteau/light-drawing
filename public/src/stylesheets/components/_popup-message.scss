@@ -21,13 +21,15 @@
 
 /* always present */
 .popupFade-transition {
-  transition: all .3s ease-in-out;
-  top: 2em;
+    transition: all .3s ease-out;
+    top: 2em;
 }
 
-/* .expand-enter defines the starting state for entering */
-/* .expand-leave defines the ending state for leaving */
-.popupFade-enter, .popupFade-leave {
-  opacity: 0;
-  top: -50px;
+.popupFade-enter {
+    opacity: 0;
+    top: -50px;
+}
+.popupFade-leave {
+    opacity: 0;
+    top: -50px;
 }
