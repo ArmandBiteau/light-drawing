@@ -3,7 +3,9 @@
 import THREE from 'three';
 import Stats from 'stats-js';
 
-let Device = require('device-detect')();
+// let Device = require('device-detect')();
+
+import States from 'core/States';
 
 import EventManagerMixin from 'mixins/EventManagerMixin';
 
@@ -20,8 +22,7 @@ import MobileControls from './controls/mobile';
 
 let ControlsMixin;
 
-let mobile = (Device.device == 'iPhone' || Device.device == 'iPad' || Device.device == 'Blackberry' || Device.device == 'WindowsMobile' || Device.device == 'Android') ? true : false;
-if (mobile) {
+if (States.deviceType == "mobile") {
 	ControlsMixin = MobileControls;
 } else {
 	ControlsMixin = DesktopControls;
@@ -284,7 +285,7 @@ export default Vue.extend({
 
             this._renderer.autoClearColor = true;
 
-            if (window.mobile) {
+            if (States.deviceType == "mobile") {
                 this._vreffect.render(this._scene, this._camera);
             } else {
                 this.composerRender();

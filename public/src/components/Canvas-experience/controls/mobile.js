@@ -1,6 +1,5 @@
 'use strict';
 
-// import THREE from 'three';
 import WEBVR from 'core/Webvr';
 
 import VRControls from 'core/VRControls';

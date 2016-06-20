@@ -1,10 +1,6 @@
 import Emitter from 'core/Emitter';
 import Socket from 'core/Socket';
 
-/*
- *  ==== EventManagerMixin ====
- */
-
 const EventManagerMixin = {
 
   emitterEvents: [],

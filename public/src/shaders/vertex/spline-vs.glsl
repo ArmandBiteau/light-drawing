@@ -1,4 +1,3 @@
-
 #pragma glslify: cnoise3 = require(glsl-noise/classic/3d)
 
 varying vec3 vPosition;

@@ -1,5 +1,4 @@
 #pragma glslify: snoise2 = require(glsl-noise/simplex/2d)
-// #pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
 
 uniform vec3 Resolution;
 uniform float iThickness;

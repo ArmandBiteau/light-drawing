@@ -2,6 +2,8 @@
 
 import THREE from 'three';
 
+import States from 'core/States';
+
 import Spline from '../objects/spline';
 
 import {
@@ -15,7 +17,7 @@ export default {
         this.isDrawing = false;
         this.currentSpline = null;
 
-        this._splinesCount = window.mobile ? 12 : 60;
+        this._splinesCount = States.deviceType == "mobile" ? 12 : 60;
 
         this._distortAmount = 5.0;
 

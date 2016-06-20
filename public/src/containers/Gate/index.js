@@ -8,7 +8,7 @@ import {
 
 import LoadingComponent from 'components/Loading';
 
-import Colors from 'core/DrawingDatas';
+import Colors from 'data/colors';
 
 export default Vue.extend({
 

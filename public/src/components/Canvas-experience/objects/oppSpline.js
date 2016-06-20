@@ -3,6 +3,8 @@
 
 import THREE from 'three';
 
+import States from 'core/States';
+
 import OppLine from '../objects/oppLine';
 
 class OppSpline extends THREE.Object3D {
@@ -13,7 +15,7 @@ class OppSpline extends THREE.Object3D {
 
         super();
 
-        this._splinesCount = window.mobile ? 12 : 60;
+        this._splinesCount = States.deviceType == "mobile" ? 12 : 60;
         this._distortAmount = 5.0;
         this._lines = [];
 

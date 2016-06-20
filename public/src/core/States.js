@@ -13,7 +13,7 @@ class States {
 
   getDeviceType() {
     if(this.mobileDetect.tablet()) {
-      return "tablet";
+      return "mobile";
     } else if (this.mobileDetect.mobile()) {
       return "mobile";
     } else {

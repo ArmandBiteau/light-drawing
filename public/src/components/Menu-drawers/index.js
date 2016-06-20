@@ -6,7 +6,9 @@ import {
     UPDATE_PLAYER, UPDATE_COLOR
 } from 'config/messages';
 
-import Colors from 'core/DrawingDatas';
+import Colors from 'data/colors';
+
+import States from 'core/states';
 
 export default Vue.extend({
 
@@ -60,7 +62,7 @@ export default Vue.extend({
 
     ready() {
 
-        if (window.mobile) this.showHtmlMenu = false;
+        if (States.deviceType == "mobile") this.showHtmlMenu = false;
 
         this.getColors();
 
