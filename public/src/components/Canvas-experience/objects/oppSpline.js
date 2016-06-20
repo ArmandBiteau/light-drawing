@@ -15,7 +15,7 @@ class OppSpline extends THREE.Object3D {
 
         super();
 
-        this._splinesCount = States.deviceType == "mobile" ? 12 : 60;
+        this._splinesCount = States.deviceType == "mobile" ? 10 : 30;
         this._distortAmount = 5.0;
         this._lines = [];
 

@@ -17,7 +17,7 @@ export default {
         this.isDrawing = false;
         this.currentSpline = null;
 
-        this._splinesCount = States.deviceType == "mobile" ? 12 : 60;
+        this._splinesCount = States.deviceType == "mobile" ? 10 : 30;
 
         this._distortAmount = 5.0;
 
