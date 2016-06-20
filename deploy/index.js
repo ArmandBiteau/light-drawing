@@ -6,11 +6,19 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _messages = require('./config/messages');
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _messages = require('./config/messages');
+var _http = require('http');
+
+var _http2 = _interopRequireDefault(_http);
+
+var _socket = require('socket.io');
+
+var _socket2 = _interopRequireDefault(_socket);
 
 var _experience = require('./models/experience');
 
@@ -24,6 +32,14 @@ var _room = require('./models/room');
 
 var _room2 = _interopRequireDefault(_room);
 
+var _app = require('./core/app');
+
+var _app2 = _interopRequireDefault(_app);
+
+var _routes = require('./core/routes');
+
+var _routes2 = _interopRequireDefault(_routes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,14 +47,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || 'localhost';
 
-// import Server from './core/Server';
-// import Socket from './core/Socket';
-
-var app = (0, _express2.default)();
-var Server = require('http').Server(app);
-var Socket = require('socket.io')(Server);
-
-var users = [];
+var Server = _http2.default.Server(_app2.default);
+var Socket = (0, _socket2.default)(Server);
 
 var Expe = new _experience2.default();
 
@@ -47,19 +57,6 @@ var Manager = function () {
         _classCallCheck(this, Manager);
 
         Server.listen(port);
-
-        app.use(_express2.default.static(_path2.default.join(__dirname, '/public')));
-
-        app.get('/:id/connect', function (req, res) {
-
-            var id = req.params.id;
-
-            res.redirect('/' + id);
-        });
-
-        app.get('*', function (req, res) {
-            res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
-        });
 
         this.setEventHandlers();
 
@@ -78,33 +75,27 @@ var Manager = function () {
                         client.room.removePlayer(client.player);
 
                         // Remove room if empty
-                        if (!client.room.players.length) {
-                            Expe.removeRoom(client.room.id);
-                        }
+                        if (!client.room.players.length) Expe.removeRoom(client.room.id);
 
                         client.broadcast.to(client.room.id).emit(_messages.GET_USERS, { users: client.room.players });
                     }
                 });
 
                 client.on(_messages.NEW_USER, function (data) {
-
                     Expe.newPlayer(client, data);
                 });
 
                 client.on(_messages.GET_MY_ID, function (data) {
-
                     client.emit(_messages.GET_MY_ID, { id: client.player.id });
                 });
 
                 client.on(_messages.UPDATE_PLAYER, function (data) {
 
                     client.room.updatePlayer(data.user);
-
                     client.broadcast.to(client.room.id).emit(_messages.GET_USERS, { users: client.room.players });
                 });
 
                 client.on(_messages.GET_USERS, function (data) {
-
                     client.emit(_messages.GET_USERS, { users: client.room.players });
                 });
 
@@ -149,17 +140,14 @@ var Manager = function () {
                 });
 
                 client.on(_messages.NEW_OPP_SPLINE, function (data) {
-
                     client.broadcast.to(client.room.id).emit(_messages.NEW_OPP_SPLINE, data);
                 });
 
                 client.on(_messages.UPDATE_OPP_SPLINE, function (data) {
-
                     client.broadcast.to(client.room.id).emit(_messages.UPDATE_OPP_SPLINE, data);
                 });
 
                 client.on(_messages.STOP_OPP_SPLINE, function (data) {
-
                     client.broadcast.to(client.room.id).emit(_messages.STOP_OPP_SPLINE, data);
                 });
             });
