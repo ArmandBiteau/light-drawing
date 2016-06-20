@@ -17,8 +17,7 @@ import Experience from './models/experience';
 import Player from './models/player';
 import Room from './models/room';
 
-import App from './core/app';
-import Routes from './core/routes';
+var App = Express();
 
 var Server = Http.Server(App);
 var Socket = io(Server);
@@ -30,6 +29,20 @@ class Manager {
     constructor() {
 
         Server.listen(port);
+
+        App.use(Express.static(path.join( __dirname, '/public')));
+
+        App.get('/:id/connect', function (req, res) {
+
+            let id = req.params.id;
+
+            res.redirect('/'+id);
+
+        });
+
+        App.get('*', function (req, res) {
+            res.sendFile(path.join( __dirname, '/public/index.html'));
+        });
 
         this.setEventHandlers();
 

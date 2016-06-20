@@ -32,14 +32,6 @@ var _room = require('./models/room');
 
 var _room2 = _interopRequireDefault(_room);
 
-var _app = require('./core/app');
-
-var _app2 = _interopRequireDefault(_app);
-
-var _routes = require('./core/routes');
-
-var _routes2 = _interopRequireDefault(_routes);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47,7 +39,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var port = process.env.PORT || 5000;
 var ip = process.env.IP || 'localhost';
 
-var Server = _http2.default.Server(_app2.default);
+var App = (0, _express2.default)();
+
+var Server = _http2.default.Server(App);
 var Socket = (0, _socket2.default)(Server);
 
 var Expe = new _experience2.default();
@@ -57,6 +51,19 @@ var Manager = function () {
         _classCallCheck(this, Manager);
 
         Server.listen(port);
+
+        App.use(_express2.default.static(_path2.default.join(__dirname, '/public')));
+
+        App.get('/:id/connect', function (req, res) {
+
+            var id = req.params.id;
+
+            res.redirect('/' + id);
+        });
+
+        App.get('*', function (req, res) {
+            res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
+        });
 
         this.setEventHandlers();
 
