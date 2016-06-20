@@ -5,24 +5,23 @@ import path from 'path';
 const port = process.env.PORT || 5000;
 const ip = process.env.IP || 'localhost';
 
-// import Server from './core/Server';
-// import Socket from './core/Socket';
-
-import express from 'express';
-
-var app = express();
-var Server = require('http').Server(app);
-var Socket = require('socket.io')(Server);
-
 import {
     NEW_USER, GET_USERS, CHECK_ROOM_CONNECTION, CHECK_ROOM_CREATE, GET_ROOM_NAME, GET_MY_ID, NEW_OPP_SPLINE, UPDATE_OPP_SPLINE, STOP_OPP_SPLINE, UPDATE_PLAYER
 } from './config/messages';
+
+import Express from 'express';
+import Http from 'http';
+import io from 'socket.io';
 
 import Experience from './models/experience';
 import Player from './models/player';
 import Room from './models/room';
 
-var users = [];
+import App from './core/app';
+import Routes from './core/routes';
+
+var Server = Http.Server(App);
+var Socket = io(Server);
 
 var Expe = new Experience();
 
@@ -31,20 +30,6 @@ class Manager {
     constructor() {
 
         Server.listen(port);
-
-        app.use(express.static(path.join( __dirname, '/public')));
-
-        app.get('/:id/connect', function (req, res) {
-
-            let id = req.params.id;
-
-            res.redirect('/'+id);
-
-        });
-
-        app.get('*', function (req, res) {
-            res.sendFile(path.join( __dirname, '/public/index.html'));
-        });
 
         this.setEventHandlers();
 
@@ -62,23 +47,20 @@ class Manager {
                     client.room.removePlayer(client.player);
 
                     // Remove room if empty
-                    if (!client.room.players.length) {
-                        Expe.removeRoom(client.room.id);
-                    }
+                    if (!client.room.players.length) Expe.removeRoom(client.room.id);
 
                     client.broadcast.to(client.room.id).emit(GET_USERS, {users: client.room.players});
+
                 }
 
             });
 
             client.on(NEW_USER, (data) => {
-
                 Expe.newPlayer(client, data);
 
             });
 
             client.on(GET_MY_ID, (data) => {
-
                 client.emit(GET_MY_ID, {id: client.player.id});
 
             });
@@ -86,13 +68,11 @@ class Manager {
             client.on(UPDATE_PLAYER, (data) => {
 
                 client.room.updatePlayer(data.user);
-
                 client.broadcast.to(client.room.id).emit(GET_USERS,{users: client.room.players});
 
             });
 
             client.on(GET_USERS, (data) => {
-
                 client.emit(GET_USERS, {users: client.room.players});
 
             });
@@ -145,19 +125,16 @@ class Manager {
             });
 
             client.on(NEW_OPP_SPLINE, (data) => {
-
                 client.broadcast.to(client.room.id).emit(NEW_OPP_SPLINE, data);
 
             });
 
             client.on(UPDATE_OPP_SPLINE, (data) => {
-
                 client.broadcast.to(client.room.id).emit(UPDATE_OPP_SPLINE, data);
 
             });
 
             client.on(STOP_OPP_SPLINE, (data) => {
-
                 client.broadcast.to(client.room.id).emit(STOP_OPP_SPLINE, data);
 
             });
