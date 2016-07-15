@@ -107,11 +107,5 @@ export default Vue.extend({
 
         }
 
-    },
-
-    transitions: {
-
-    },
-
-    components: {}
+    }
 });

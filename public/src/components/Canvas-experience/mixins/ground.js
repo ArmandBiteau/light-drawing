@@ -20,7 +20,7 @@ export default {
 
 		groundInitialize() {
 
-            let groundGeometry = new THREE.PlaneGeometry(this._groundSize, this._groundSize);
+            let groundGeometry = new THREE.PlaneGeometry(this._groundSize, this._groundSize, Math.floor(this._groundSize)+1, Math.floor(this._groundSize)+1);
             let groundMaterial = new THREE.MeshBasicMaterial({
                 color: this._groundColor,
                 side: 2,
@@ -28,9 +28,9 @@ export default {
             });
             this._ground = new THREE.Mesh(groundGeometry, groundMaterial);
 
-            this._ground.position.z = -2.5;
+            this._ground.position.y = -2.5;
 
-            // this._ground.rotation.x = -Math.PI / 2;
+            this._ground.rotation.x = -Math.PI / 2;
 			this._scene.add(this._ground);
 
 		},

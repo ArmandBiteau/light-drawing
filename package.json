@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "eslint .",
     "start-client": "NODE_ENV=development babel-node public/index.js",
-    "start-server": "NODE_ENV=development babel-watch server/index.js",
+    "start-server": "NODE_ENV=development babel-node server/index.js",
     "build-client": "NODE_ENV=production webpack --config webpack/webpack.prod.config.babel.js --progress --profile --colors",
     "build-server": "NODE_ENV=production babel server --out-dir deploy",
     "build": "npm run build-server && npm run build-client",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@superguigui/wagner": "^0.1.23",
+    "detect-browser": "^1.4.0",
     "device-detect": "^1.0.7",
     "domready": "^1.0.8",
     "express": "^4.13.4",
@@ -54,7 +55,7 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
-    "babel-cli": "^6.4.0",
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.3.26",
     "babel-eslint": "6.0.0-beta.3",
     "babel-loader": "^6.2.1",

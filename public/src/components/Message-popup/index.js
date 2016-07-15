@@ -8,10 +8,6 @@ export default Vue.extend({
 
   template: require('./template.html'),
 
-  emitterEvents: [],
-
-  domEvents: [],
-
   props: {
       popupMessage: {
           type: Object,
@@ -24,21 +20,5 @@ export default Vue.extend({
     return {
       _hidden: null
     };
-  },
-
-  ready() {
-
-  },
-
-  beforeDestroy() {},
-
-  methods: {
-
-  },
-
-  transitions: {
-
-  },
-
-  components: {}
+  }
 });

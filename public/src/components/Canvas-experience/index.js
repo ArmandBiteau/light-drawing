@@ -245,7 +245,7 @@ export default Vue.extend({
 
 			this.controlsInitialize();
 
-            // this.groundInitialize();
+            this.groundInitialize();
 
 		},
 

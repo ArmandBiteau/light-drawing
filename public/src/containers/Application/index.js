@@ -12,6 +12,10 @@ import States from 'core/States';
 
 import debounce from 'lodash.debounce';
 
+if (States.deviceType == "mobile") {
+    require('core/Webvr-polyfill');
+}
+
 import {
     WINDOW_RESIZE, NEW_USER, GET_USERS, IS_READY, IS_LOADED, POPUP_MESSAGE, BACK_HOME, GET_MY_ID
 } from 'config/messages';
@@ -90,8 +94,6 @@ export default Vue.extend({
     },
 
     ready() {
-
-        if (States.deviceType == "mobile") require('core/Webvr-polyfill');
 
         if ((States.deviceType == "mobile") && WEBVR.isLatestAvailable() === false) {
 			document.body.appendChild(WEBVR.getMessage());

@@ -16,10 +16,6 @@ export default Vue.extend({
 
     template: require('./template.html'),
 
-    emitterEvents: [],
-
-    domEvents: [],
-
     data() {
 
         return {
@@ -27,10 +23,6 @@ export default Vue.extend({
             loader: null,
             manifest: []
         };
-    },
-
-    created() {
-
     },
 
     ready() {
@@ -90,9 +82,5 @@ export default Vue.extend({
            console.log('Error while loading files');
        }
 
-    },
-
-    transitions: {},
-
-    components: {}
+    }
 });
